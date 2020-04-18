@@ -1,0 +1,684 @@
+{
+  "series": [
+    { "type": "line" },
+    { "type": "line" },
+    { "type": "line" },
+    { "type": "line" },
+    { "type": "line" },
+    { "type": "line" },
+    { "type": "line" },
+    { "type": "line" }
+  ],
+  "dimensions": [
+    "Date",
+    "France",
+    "Spain",
+    "Italy",
+    "Japan",
+    "Canada",
+    "Germany",
+    "Morocco",
+    "Hungary"
+  ],
+  "source": [
+    { "Date": "2020-01-24", "France": 2 },
+    { "Date": "2020-01-25", "France": 3 },
+    { "Date": "2020-01-26", "France": 3, "Japan": 4, "Canada": 1 },
+    {
+      "Date": "2020-01-27",
+      "France": 3,
+      "Japan": 4,
+      "Canada": 1,
+      "Germany": 1
+    },
+    {
+      "Date": "2020-01-28",
+      "France": 4,
+      "Japan": 7,
+      "Canada": 2,
+      "Germany": 4
+    },
+    {
+      "Date": "2020-01-29",
+      "France": 5,
+      "Japan": 7,
+      "Canada": 2,
+      "Germany": 4
+    },
+    {
+      "Date": "2020-01-30",
+      "France": 5,
+      "Japan": 11,
+      "Canada": 2,
+      "Germany": 4
+    },
+    {
+      "Date": "2020-01-31",
+      "France": 5,
+      "Italy": 2,
+      "Japan": 15,
+      "Canada": 4,
+      "Germany": 5
+    },
+    {
+      "Date": "2020-02-01",
+      "France": 6,
+      "Spain": 1,
+      "Italy": 2,
+      "Japan": 20,
+      "Canada": 4,
+      "Germany": 8
+    },
+    {
+      "Date": "2020-02-02",
+      "France": 6,
+      "Spain": 1,
+      "Italy": 2,
+      "Japan": 20,
+      "Canada": 4,
+      "Germany": 10
+    },
+    {
+      "Date": "2020-02-03",
+      "France": 6,
+      "Spain": 1,
+      "Italy": 2,
+      "Japan": 20,
+      "Canada": 4,
+      "Germany": 12
+    },
+    {
+      "Date": "2020-02-04",
+      "France": 6,
+      "Spain": 1,
+      "Italy": 2,
+      "Japan": 22,
+      "Canada": 4,
+      "Germany": 12
+    },
+    {
+      "Date": "2020-02-05",
+      "France": 6,
+      "Spain": 1,
+      "Italy": 2,
+      "Japan": 22,
+      "Canada": 5,
+      "Germany": 12
+    },
+    {
+      "Date": "2020-02-06",
+      "France": 6,
+      "Spain": 1,
+      "Italy": 2,
+      "Japan": 22,
+      "Canada": 5,
+      "Germany": 12
+    },
+    {
+      "Date": "2020-02-07",
+      "France": 6,
+      "Spain": 1,
+      "Italy": 3,
+      "Japan": 25,
+      "Canada": 7,
+      "Germany": 13
+    },
+    {
+      "Date": "2020-02-08",
+      "France": 11,
+      "Spain": 1,
+      "Italy": 3,
+      "Japan": 25,
+      "Canada": 7,
+      "Germany": 13
+    },
+    {
+      "Date": "2020-02-09",
+      "France": 11,
+      "Spain": 2,
+      "Italy": 3,
+      "Japan": 26,
+      "Canada": 7,
+      "Germany": 14
+    },
+    {
+      "Date": "2020-02-10",
+      "France": 11,
+      "Spain": 2,
+      "Italy": 3,
+      "Japan": 26,
+      "Canada": 7,
+      "Germany": 14
+    },
+    {
+      "Date": "2020-02-11",
+      "France": 11,
+      "Spain": 2,
+      "Italy": 3,
+      "Japan": 26,
+      "Canada": 7,
+      "Germany": 16
+    },
+    {
+      "Date": "2020-02-12",
+      "France": 11,
+      "Spain": 2,
+      "Italy": 3,
+      "Japan": 28,
+      "Canada": 7,
+      "Germany": 16
+    },
+    {
+      "Date": "2020-02-13",
+      "France": 11,
+      "Spain": 2,
+      "Italy": 3,
+      "Japan": 28,
+      "Canada": 7,
+      "Germany": 16
+    },
+    {
+      "Date": "2020-02-14",
+      "France": 11,
+      "Spain": 2,
+      "Italy": 3,
+      "Japan": 29,
+      "Canada": 7,
+      "Germany": 16
+    },
+    {
+      "Date": "2020-02-15",
+      "France": 12,
+      "Spain": 2,
+      "Italy": 3,
+      "Japan": 43,
+      "Canada": 7,
+      "Germany": 16
+    },
+    {
+      "Date": "2020-02-16",
+      "France": 12,
+      "Spain": 2,
+      "Italy": 3,
+      "Japan": 59,
+      "Canada": 7,
+      "Germany": 16
+    },
+    {
+      "Date": "2020-02-17",
+      "France": 12,
+      "Spain": 2,
+      "Italy": 3,
+      "Japan": 66,
+      "Canada": 8,
+      "Germany": 16
+    },
+    {
+      "Date": "2020-02-18",
+      "France": 12,
+      "Spain": 2,
+      "Italy": 3,
+      "Japan": 74,
+      "Canada": 8,
+      "Germany": 16
+    },
+    {
+      "Date": "2020-02-19",
+      "France": 12,
+      "Spain": 2,
+      "Italy": 3,
+      "Japan": 84,
+      "Canada": 8,
+      "Germany": 16
+    },
+    {
+      "Date": "2020-02-20",
+      "France": 12,
+      "Spain": 2,
+      "Italy": 3,
+      "Japan": 94,
+      "Canada": 8,
+      "Germany": 16
+    },
+    {
+      "Date": "2020-02-21",
+      "France": 12,
+      "Spain": 2,
+      "Italy": 20,
+      "Japan": 105,
+      "Canada": 9,
+      "Germany": 16
+    },
+    {
+      "Date": "2020-02-22",
+      "France": 12,
+      "Spain": 2,
+      "Italy": 62,
+      "Japan": 122,
+      "Canada": 9,
+      "Germany": 16
+    },
+    {
+      "Date": "2020-02-23",
+      "France": 12,
+      "Spain": 2,
+      "Italy": 155,
+      "Japan": 147,
+      "Canada": 9,
+      "Germany": 16
+    },
+    {
+      "Date": "2020-02-24",
+      "France": 12,
+      "Spain": 2,
+      "Italy": 229,
+      "Japan": 159,
+      "Canada": 10,
+      "Germany": 16
+    },
+    {
+      "Date": "2020-02-25",
+      "France": 14,
+      "Spain": 6,
+      "Italy": 322,
+      "Japan": 170,
+      "Canada": 11,
+      "Germany": 17
+    },
+    {
+      "Date": "2020-02-26",
+      "France": 18,
+      "Spain": 13,
+      "Italy": 453,
+      "Japan": 189,
+      "Canada": 11,
+      "Germany": 27
+    },
+    {
+      "Date": "2020-02-27",
+      "France": 38,
+      "Spain": 15,
+      "Italy": 655,
+      "Japan": 214,
+      "Canada": 13,
+      "Germany": 46
+    },
+    {
+      "Date": "2020-02-28",
+      "France": 57,
+      "Spain": 32,
+      "Italy": 888,
+      "Japan": 228,
+      "Canada": 14,
+      "Germany": 48
+    },
+    {
+      "Date": "2020-02-29",
+      "France": 100,
+      "Spain": 45,
+      "Italy": 1128,
+      "Japan": 241,
+      "Canada": 20,
+      "Germany": 79
+    },
+    {
+      "Date": "2020-03-01",
+      "France": 130,
+      "Spain": 84,
+      "Italy": 1694,
+      "Japan": 256,
+      "Canada": 24,
+      "Germany": 130
+    },
+    {
+      "Date": "2020-03-02",
+      "France": 191,
+      "Spain": 120,
+      "Italy": 2036,
+      "Japan": 274,
+      "Canada": 27,
+      "Germany": 159,
+      "Morocco": 1
+    },
+    {
+      "Date": "2020-03-03",
+      "France": 204,
+      "Spain": 165,
+      "Italy": 2502,
+      "Japan": 293,
+      "Canada": 30,
+      "Germany": 196,
+      "Morocco": 1
+    },
+    {
+      "Date": "2020-03-04",
+      "France": 285,
+      "Spain": 222,
+      "Italy": 3089,
+      "Japan": 331,
+      "Canada": 33,
+      "Germany": 262,
+      "Morocco": 1,
+      "Hungary": 2
+    },
+    {
+      "Date": "2020-03-05",
+      "France": 377,
+      "Spain": 259,
+      "Italy": 3858,
+      "Japan": 360,
+      "Canada": 37,
+      "Germany": 482,
+      "Morocco": 2,
+      "Hungary": 2
+    },
+    {
+      "Date": "2020-03-06",
+      "France": 653,
+      "Spain": 400,
+      "Italy": 4636,
+      "Japan": 420,
+      "Canada": 49,
+      "Germany": 670,
+      "Morocco": 2,
+      "Hungary": 2
+    },
+    {
+      "Date": "2020-03-07",
+      "France": 949,
+      "Spain": 500,
+      "Italy": 5883,
+      "Japan": 461,
+      "Canada": 54,
+      "Germany": 799,
+      "Morocco": 2,
+      "Hungary": 4
+    },
+    {
+      "Date": "2020-03-08",
+      "France": 1126,
+      "Spain": 673,
+      "Italy": 7375,
+      "Japan": 502,
+      "Canada": 64,
+      "Germany": 1040,
+      "Morocco": 2,
+      "Hungary": 7
+    },
+    {
+      "Date": "2020-03-09",
+      "France": 1209,
+      "Spain": 1073,
+      "Italy": 9172,
+      "Japan": 511,
+      "Canada": 77,
+      "Germany": 1176,
+      "Morocco": 2,
+      "Hungary": 9
+    },
+    {
+      "Date": "2020-03-10",
+      "France": 1784,
+      "Spain": 1695,
+      "Italy": 10149,
+      "Japan": 581,
+      "Canada": 79,
+      "Germany": 1457,
+      "Morocco": 3,
+      "Hungary": 9
+    },
+    {
+      "Date": "2020-03-11",
+      "France": 2281,
+      "Spain": 2277,
+      "Italy": 12462,
+      "Japan": 639,
+      "Canada": 108,
+      "Germany": 1908,
+      "Morocco": 5,
+      "Hungary": 13
+    },
+    {
+      "Date": "2020-03-12",
+      "France": 2281,
+      "Spain": 2277,
+      "Italy": 12462,
+      "Japan": 639,
+      "Canada": 117,
+      "Germany": 2078,
+      "Morocco": 6,
+      "Hungary": 13
+    },
+    {
+      "Date": "2020-03-13",
+      "France": 3661,
+      "Spain": 5232,
+      "Italy": 17660,
+      "Japan": 701,
+      "Canada": 193,
+      "Germany": 3675,
+      "Morocco": 7,
+      "Hungary": 19
+    },
+    {
+      "Date": "2020-03-14",
+      "France": 4469,
+      "Spain": 6391,
+      "Italy": 21157,
+      "Japan": 773,
+      "Canada": 198,
+      "Germany": 4585,
+      "Morocco": 17,
+      "Hungary": 30
+    },
+    {
+      "Date": "2020-03-15",
+      "France": 4499,
+      "Spain": 7798,
+      "Italy": 24747,
+      "Japan": 839,
+      "Canada": 252,
+      "Germany": 5795,
+      "Morocco": 28,
+      "Hungary": 32
+    },
+    {
+      "Date": "2020-03-16",
+      "France": 6633,
+      "Spain": 9942,
+      "Italy": 27980,
+      "Japan": 839,
+      "Canada": 415,
+      "Germany": 7272,
+      "Morocco": 29,
+      "Hungary": 39
+    },
+    {
+      "Date": "2020-03-17",
+      "France": 7652,
+      "Spain": 11748,
+      "Italy": 31506,
+      "Japan": 878,
+      "Canada": 478,
+      "Germany": 9257,
+      "Morocco": 38,
+      "Hungary": 50
+    },
+    {
+      "Date": "2020-03-18",
+      "France": 9043,
+      "Spain": 13910,
+      "Italy": 35713,
+      "Japan": 889,
+      "Canada": 657,
+      "Germany": 12327,
+      "Morocco": 49,
+      "Hungary": 58
+    },
+    {
+      "Date": "2020-03-19",
+      "France": 10871,
+      "Spain": 17963,
+      "Italy": 41035,
+      "Japan": 924,
+      "Canada": 800,
+      "Germany": 15320,
+      "Morocco": 63,
+      "Hungary": 73
+    },
+    {
+      "Date": "2020-03-20",
+      "France": 12612,
+      "Spain": 20410,
+      "Italy": 47021,
+      "Japan": 963,
+      "Canada": 943,
+      "Germany": 19848,
+      "Morocco": 77,
+      "Hungary": 85
+    },
+    {
+      "Date": "2020-03-21",
+      "France": 14282,
+      "Spain": 25374,
+      "Italy": 53578,
+      "Japan": 1007,
+      "Canada": 1277,
+      "Germany": 22213,
+      "Morocco": 96,
+      "Hungary": 103
+    },
+    {
+      "Date": "2020-03-22",
+      "France": 16018,
+      "Spain": 28768,
+      "Italy": 59138,
+      "Japan": 1101,
+      "Canada": 1469,
+      "Germany": 24873,
+      "Morocco": 115,
+      "Hungary": 131
+    },
+    {
+      "Date": "2020-03-23",
+      "France": 19856,
+      "Spain": 35136,
+      "Italy": 63927,
+      "Japan": 1128,
+      "Canada": 2088,
+      "Germany": 29056,
+      "Morocco": 143,
+      "Hungary": 167
+    },
+    {
+      "Date": "2020-03-24",
+      "France": 22304,
+      "Spain": 39885,
+      "Italy": 69176,
+      "Japan": 1193,
+      "Canada": 2790,
+      "Germany": 32986,
+      "Morocco": 170,
+      "Hungary": 187
+    },
+    {
+      "Date": "2020-03-25",
+      "France": 25233,
+      "Spain": 49515,
+      "Italy": 74386,
+      "Japan": 1307,
+      "Canada": 3251,
+      "Germany": 37323,
+      "Morocco": 225,
+      "Hungary": 226
+    },
+    {
+      "Date": "2020-03-26",
+      "France": 29155,
+      "Spain": 57786,
+      "Italy": 80589,
+      "Japan": 1387,
+      "Canada": 4042,
+      "Germany": 43938,
+      "Morocco": 275,
+      "Hungary": 261
+    },
+    {
+      "Date": "2020-03-27",
+      "France": 32964,
+      "Spain": 65719,
+      "Italy": 86498,
+      "Japan": 1468,
+      "Canada": 4682,
+      "Germany": 50871,
+      "Morocco": 345,
+      "Hungary": 300
+    },
+    {
+      "Date": "2020-03-28",
+      "France": 37575,
+      "Spain": 73235,
+      "Italy": 92472,
+      "Japan": 1693,
+      "Canada": 5576,
+      "Germany": 57695,
+      "Morocco": 402,
+      "Hungary": 343
+    },
+    {
+      "Date": "2020-03-29",
+      "France": 40174,
+      "Spain": 80110,
+      "Italy": 97689,
+      "Japan": 1866,
+      "Canada": 6280,
+      "Germany": 62095,
+      "Morocco": 479,
+      "Hungary": 408
+    },
+    {
+      "Date": "2020-03-30",
+      "France": 44550,
+      "Spain": 87956,
+      "Italy": 101739,
+      "Japan": 1866,
+      "Canada": 7398,
+      "Germany": 66885,
+      "Morocco": 556,
+      "Hungary": 447
+    },
+    {
+      "Date": "2020-03-31",
+      "France": 52128,
+      "Spain": 95923,
+      "Italy": 105792,
+      "Japan": 1953,
+      "Canada": 8527,
+      "Germany": 71808,
+      "Morocco": 617,
+      "Hungary": 492
+    },
+    {
+      "Date": "2020-04-01",
+      "France": 56989,
+      "Spain": 104118,
+      "Italy": 110574,
+      "Japan": 2178,
+      "Canada": 9560,
+      "Germany": 77872,
+      "Morocco": 654,
+      "Hungary": 525
+    },
+    {
+      "Date": "2020-04-02",
+      "France": 59105,
+      "Spain": 112065,
+      "Italy": 115242,
+      "Japan": 2495,
+      "Canada": 11284,
+      "Germany": 84794,
+      "Morocco": 708,
+      "Hungary": 585
+    }
+  ]
+}

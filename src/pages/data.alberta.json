@@ -1,0 +1,166 @@
+{
+  "series": [
+    { "type": "line" },
+    { "type": "line" },
+    { "type": "line" },
+    { "type": "line" },
+    { "type": "line" }
+  ],
+  "dimensions": ["Date", "Calgary", "Edmonton", "North", "Central", "South"],
+  "source": [
+    { "Date": "2020-03-06", "Calgary": 1 },
+    { "Date": "2020-03-07", "Calgary": 1 },
+    { "Date": "2020-03-08", "Calgary": 1 },
+    { "Date": "2020-03-09", "Calgary": 4, "Edmonton": 3 },
+    { "Date": "2020-03-10", "Calgary": 10, "Edmonton": 6 },
+    { "Date": "2020-03-11", "Calgary": 15, "Central": 1, "Edmonton": 8 },
+    { "Date": "2020-03-12", "Calgary": 17, "Central": 1, "Edmonton": 8 },
+    { "Date": "2020-03-13", "Calgary": 25, "Central": 1, "Edmonton": 8 },
+    { "Date": "2020-03-14", "Calgary": 38, "Central": 1, "Edmonton": 14 },
+    { "Date": "2020-03-15", "Calgary": 47, "Central": 1, "Edmonton": 15 },
+    {
+      "Date": "2020-03-16",
+      "Calgary": 62,
+      "Central": 2,
+      "Edmonton": 20,
+      "North": 2,
+      "South": 1
+    },
+    {
+      "Date": "2020-03-17",
+      "Calgary": 68,
+      "Central": 3,
+      "Edmonton": 27,
+      "North": 3,
+      "South": 1
+    },
+    {
+      "Date": "2020-03-18",
+      "Calgary": 90,
+      "Central": 3,
+      "Edmonton": 30,
+      "North": 4,
+      "South": 3
+    },
+    {
+      "Date": "2020-03-19",
+      "Calgary": 103,
+      "Central": 3,
+      "Edmonton": 38,
+      "North": 11,
+      "South": 4
+    },
+    {
+      "Date": "2020-03-20",
+      "Calgary": 128,
+      "Central": 5,
+      "Edmonton": 51,
+      "North": 14,
+      "South": 6
+    },
+    {
+      "Date": "2020-03-21",
+      "Calgary": 153,
+      "Central": 7,
+      "Edmonton": 57,
+      "North": 16,
+      "South": 7
+    },
+    {
+      "Date": "2020-03-22",
+      "Calgary": 182,
+      "Central": 13,
+      "Edmonton": 63,
+      "North": 18,
+      "South": 8
+    },
+    {
+      "Date": "2020-03-23",
+      "Calgary": 208,
+      "Central": 26,
+      "Edmonton": 76,
+      "North": 18,
+      "South": 8
+    },
+    {
+      "Date": "2020-03-24",
+      "Calgary": 245,
+      "Central": 34,
+      "Edmonton": 90,
+      "North": 20,
+      "South": 10
+    },
+    {
+      "Date": "2020-03-25",
+      "Calgary": 293,
+      "Central": 36,
+      "Edmonton": 104,
+      "North": 22,
+      "South": 12
+    },
+    {
+      "Date": "2020-03-26",
+      "Calgary": 332,
+      "Central": 40,
+      "Edmonton": 109,
+      "North": 26,
+      "South": 12
+    },
+    {
+      "Date": "2020-03-27",
+      "Calgary": 372,
+      "Central": 48,
+      "Edmonton": 129,
+      "North": 42,
+      "South": 12
+    },
+    {
+      "Date": "2020-03-28",
+      "Calgary": 405,
+      "Central": 48,
+      "Edmonton": 146,
+      "North": 46,
+      "South": 12
+    },
+    {
+      "Date": "2020-03-29",
+      "Calgary": 425,
+      "Central": 49,
+      "Edmonton": 154,
+      "North": 46,
+      "South": 12
+    },
+    {
+      "Date": "2020-03-30",
+      "Calgary": 449,
+      "Central": 53,
+      "Edmonton": 174,
+      "North": 49,
+      "South": 12
+    },
+    {
+      "Date": "2020-03-31",
+      "Calgary": 532,
+      "Central": 57,
+      "Edmonton": 210,
+      "North": 51,
+      "South": 12
+    },
+    {
+      "Date": "2020-04-01",
+      "Calgary": 583,
+      "Central": 58,
+      "Edmonton": 244,
+      "North": 51,
+      "South": 13
+    },
+    {
+      "Date": "2020-04-02",
+      "Calgary": 589,
+      "Central": 59,
+      "Edmonton": 247,
+      "North": 55,
+      "South": 14
+    }
+  ]
+}
