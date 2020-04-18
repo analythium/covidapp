@@ -14,8 +14,8 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
         <q-toolbar-title>
-          <q-avatar class="q-mr-sm">
-            <img style="height:90%;width:90%" src="~assets/logo-analythium.png" />
+          <q-avatar>
+            <img src="https://hub.analythium.io/assets/logo/blues3/logo.png" />
           </q-avatar>
           COVID-19 App
         </q-toolbar-title>
@@ -27,6 +27,7 @@
       show-if-above
       bordered
       content-class="bg-grey-1"
+      :width="270"
     >
       <q-list>
         <q-item-label
@@ -47,11 +48,11 @@
       <router-view />
     </q-page-container>
 
-    <q-footer class="bg-grey-2 text-black">
+    <!-- <q-footer class="bg-grey-2 text-black">
       <q-toolbar>
         Footer text
       </q-toolbar>
-    </q-footer>
+    </q-footer> -->
   </q-layout>
 </template>
 
