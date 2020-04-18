@@ -15,7 +15,7 @@
         />
         <q-toolbar-title>
           <q-avatar>
-            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg" />
+            <img src="https://hub.analythium.io/assets/logo/blues3/logo.png" />
           </q-avatar>
           COVID-19 App
         </q-toolbar-title>
