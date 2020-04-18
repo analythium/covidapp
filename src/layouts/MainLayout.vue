@@ -14,8 +14,8 @@
           @click="leftDrawerOpen = !leftDrawerOpen"
         />
         <q-toolbar-title>
-          <q-avatar>
-            <img src="https://cdn.quasar.dev/logo/svg/quasar-logo.svg" />
+          <q-avatar class="q-mr-sm">
+            <img style="height:90%;width:90%" src="~assets/logo-analythium.png" />
           </q-avatar>
           COVID-19 App
         </q-toolbar-title>
@@ -70,40 +70,28 @@ export default {
       leftDrawerOpen: false,
       essentialLinks: [
         {
-          title: "Docs",
-          caption: "quasar.dev",
-          icon: "school",
-          link: "https://quasar.dev"
-        },
-        {
-          title: "Github",
-          caption: "github.com/quasarframework",
-          icon: "code",
-          link: "https://github.com/quasarframework"
-        },
-        {
-          title: "Discord Chat Channel",
-          caption: "chat.quasar.dev",
-          icon: "chat",
-          link: "https://chat.quasar.dev"
-        },
-        {
-          title: "Forum",
-          caption: "forum.quasar.dev",
-          icon: "record_voice_over",
-          link: "https://forum.quasar.dev"
-        },
-        {
-          title: "Twitter",
-          caption: "@quasarframework",
-          icon: "rss_feed",
-          link: "https://twitter.quasar.dev"
-        },
-        {
-          title: "Facebook",
-          caption: "@QuasarFramework",
+          title: "World",
+          caption: "Explore Canada vs World",
           icon: "public",
-          link: "https://facebook.quasar.dev"
+          link: "/"
+        },
+        {
+          title: "Canada",
+          caption: "Explore within Canada",
+          icon: "mdi-leaf-maple",
+          link: "/canada"
+        },
+        {
+          title: "Alberta",
+          caption: "Explore within Alberta",
+          icon: "mdi-map-marker",
+          link: "/alberta"
+        },
+        {
+          title: "World Map",
+          caption: "View hotspots of the world",
+          icon: "mdi-globe-model",
+          link: ""
         }
       ]
     };
