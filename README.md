@@ -1,6 +1,6 @@
 # COVID-19 App (covidapp)
 
-Interactive visualization for global COVID-19 data
+> Interactive visualization for global COVID-19 data
 
 ## Install the dependencies
 ```bash
