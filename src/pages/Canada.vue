@@ -4,7 +4,17 @@
     <p class="text-body1">Compare provinces and territories within Canada.</p>
     <div class="row">
       <div class="col">
-        Deaths<q-toggle v-model="total" @input="changeToggle" label="Total" /> 
+        <q-toolbar>
+          Deaths
+          <q-toggle class="q-mr-sm" v-model="total" @input="changeToggle" label="Total" />
+          <q-separator vertical />
+          <q-toggle class="q-mr-sm" v-model="logscale" @input="changeLogToggle" label="Log scale" />
+          <q-separator vertical />
+          <div class="q-ml-sm">
+              Doubling Time
+          <q-toggle v-model="rate" @input="changeToggle" label="Daily % Rate" />
+          </div> 
+        </q-toolbar>
       </div>
     </div>
     <!-- Plot for Canada -->
@@ -32,6 +42,7 @@ import "echarts/lib/component/toolbox";
 import "echarts/lib/component/dataZoom";
 import "echarts/lib/component/legend";
 import "echarts/lib/component/title";
+var cloneDeep = require("lodash.clonedeep");
 
 import dataCanada from "./data.canada.json";
 
@@ -46,7 +57,7 @@ const dataLineCanada = {
     left: "7%"
   },
   xAxis: { type: "category" },
-  yAxis: { type: "log" },
+  yAxis: { type: "log", minorTick: {show: true} },
   series: [],
   dataZoom: [
     {
@@ -102,8 +113,66 @@ export default {
   data() {
     return {
       lineCanada: dataLineCanada,
-      total: true
+      logscale: true,
+      total: true,
+      dataResponse: null,
+      options: null,
+      totalData: null,
+      deathData: null,
+      rateData: null,
+      doubleData: null,
+      rate: true
     };
+  },
+  methods: {
+    changeLogToggle(val) {
+      if (val) {
+        this.lineCanada.yAxis.type = "log";
+      } else {
+        this.lineCanada.yAxis.type = "value";
+      }
+    },
+    changeToggle(val) {
+      if (val) {
+        this.lineCanada.dataset.source = cloneDeep(this.dataResponse["numtotal"]);
+      } else {
+        this.lineCanada.dataset.source = cloneDeep(this.dataResponse["numdeaths"]);
+      }
+    },
+    setConfig(selected) {
+      if (this.dataResponse == null) return;
+      var config = dataLineCanada;
+      this.total ? config.dataset.source = cloneDeep(this.dataResponse["numtotal"]) : config.dataset.source = cloneDeep(this.dataResponse["numdeaths"])
+      this.logscale ? (config.yAxis.type = "log") : (config.yAxis.type = "value");
+      config.series = Array(selected.length - 1).fill({
+        type: "line"
+      });
+      config.dataset.dimensions = selected;
+      this.lineCanada = cloneDeep(config);
+    },
+    loadData() {
+      this.$axios
+        .get("https://hub.analythium.io/covid-19/api/v1/data/canada/index.json")
+        .then(response => {
+          this.dataResponse = response.data;
+          var total = this.dataResponse["numtotal"];
+          this.options = Object.keys(total[total.length - 1]);
+          this.setConfig(this.options);
+        })
+        .catch(() => {
+          this.$q.notify({
+            color: "negative",
+            position: "bottom",
+            message: "Loading failed",
+            icon: "report_problem",
+            timeout: 0,
+            actions: [{ icon: "close", color: "white" }]
+          });
+        });
+    }
+  },
+  mounted() {
+    this.loadData();
   }
 };
 </script>

@@ -6,7 +6,7 @@
     <!-- Controls for Canada vs World -->
     <div class="row">
       <div class="col-2">
-        <q-toggle v-model="logscale" @input="changeToggle" label="Log scale" left-label />
+        <q-toggle v-model="logscale" @input="changeToggle" label="Log scale" />
       </div>
       <div class="col-10">
         <q-select
@@ -161,6 +161,9 @@ export default {
         type: "line"
       });
       config.dataset.dimensions = toKeep;
+      this.logscale
+        ? (config.yAxis.type = "log")
+        : (config.yAxis.type = "value");
       this.lineCountries = cloneDeep(config);
     },
     filterFn(val, update) {
