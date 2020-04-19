@@ -66,15 +66,21 @@ const dataLineCanada = {
   ],
   toolbox: {
     show: true,
+    itemSize: 30,
     orient: "vertical",
+    showTitle: false,
     feature: {
-      dataZoom: { title: { zoom: "", back: "" } },
+      dataZoom: { title: { zoom: "Zoom", back: "Undo" } },
       magicType: {
         type: ["line", "bar"],
-        title: { line: "", bar: "" }
+        title: { line: "Line", bar: "Bar" }
       },
-      restore: {},
+      restore: {title: "Reset"},
       saveAsImage: { title: "Save" }
+    },
+    tooltip: { // same as option.tooltip
+        show: true,
+        position: "left"
     }
   }
 };

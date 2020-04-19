@@ -1,5 +1,6 @@
 <template>
   <q-page padding>
+    <!-- numtotal and numdeaths -->
     <h4 style="margin: 0 0 1rem;">Zones and areas within Alberta</h4>
     <p class="text-body1">Compare zones and areas within Alberta.</p>
     <!-- Plot for Alberta -->
@@ -66,15 +67,21 @@ const dataLineAlberta = {
   ],
   toolbox: {
     show: true,
+    itemSize: 30,
     orient: "vertical",
+    showTitle: false,
     feature: {
-      dataZoom: { title: { zoom: "", back: "" } },
+      dataZoom: { title: { zoom: "Zoom", back: "Undo" } },
       magicType: {
         type: ["line", "bar"],
-        title: { line: "", bar: "" }
+        title: { line: "Line", bar: "Bar" }
       },
-      restore: {},
+      restore: {title: "Reset"},
       saveAsImage: { title: "Save" }
+    },
+    tooltip: { // same as option.tooltip
+        show: true,
+        position: "left"
     }
   }
 };
