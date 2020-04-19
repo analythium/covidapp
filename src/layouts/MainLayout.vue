@@ -72,19 +72,19 @@ export default {
       essentialLinks: [
         {
           title: "World",
-          caption: "Explore Canada vs World",
+          caption: "Canada and other countries",
           icon: "public",
           link: "/"
         },
         {
           title: "Canada",
-          caption: "Explore within Canada",
+          caption: "Canadian provinces and territories",
           icon: "mdi-leaf-maple",
           link: "/canada"
         },
         {
           title: "Alberta",
-          caption: "Explore within Alberta",
+          caption: "Zones and areas within Alberta",
           icon: "mdi-map-marker",
           link: "/alberta"
         },

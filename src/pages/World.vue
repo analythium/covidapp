@@ -36,7 +36,6 @@
           <v-chart class="q-mt-lg" autoresize :options="lineCountries" />
         </div>
       </div>
-    </div>
   </q-page>
 </template>
 
@@ -57,8 +56,6 @@ import "echarts/lib/component/dataZoom";
 import "echarts/lib/component/legend";
 import "echarts/lib/component/title";
 
-import dataAlberta from "./data.alberta.json";
-import dataCanada from "./data.canada.json";
 import dataCountries from "./data.countries.json";
 
 const stringOptions = [
@@ -78,8 +75,7 @@ const dataLineCountries = {
     "source": []
   },
   grid: {
-    left: "7%",
-    right: "5%"
+    left: "7%"
   },
   "xAxis": { "type": "category" },
   "yAxis": { "type": "log" },
