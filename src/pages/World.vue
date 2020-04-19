@@ -66,7 +66,7 @@ const dataLineCountries = {
     left: "7%"
   },
   xAxis: { type: "category" },
-  yAxis: { type: "log" },
+  yAxis: { type: "log", logBase: 1000000, minorTick: {show: true} },
   series: [],
   dataZoom: [
     {

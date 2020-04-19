@@ -12,7 +12,7 @@
           <q-separator vertical />
           <div class="q-ml-sm">
               Doubling Time
-          <q-toggle v-model="rate" @input="changeToggle" label="Daily % Rate" />
+          <q-toggle v-model="rate" @input="changeRateToggle" label="Daily % Rate" />
           </div> 
         </q-toolbar>
       </div>
@@ -138,6 +138,8 @@ export default {
       } else {
         this.lineCanada.dataset.source = cloneDeep(this.dataResponse["numdeaths"]);
       }
+    },
+    changeRateToggle(val){
     },
     setConfig(selected) {
       if (this.dataResponse == null) return;
