@@ -5,10 +5,10 @@
     <p class="text-body1">Compare the number of cases in Canada to data from other countries.</p>
     <!-- Controls for Canada vs World -->
     <div class="row">
-      <div class="col">
+      <div class="col-2">
         <q-toggle v-model="logscale" @input="changeToggle" label="Log scale" left-label />
       </div>
-      <div class="col">
+      <div class="col-10">
         <q-select
           rounded
           standout
@@ -20,7 +20,7 @@
           input-debounce="0"
           :options="filterOptions"
           @filter="filterFn"
-          style="width: 500px; float:right;"
+          style="width: 100%; float:right;"
           @input="changeDisplay"
         />
       </div>
@@ -50,19 +50,20 @@ import "echarts/lib/component/toolbox";
 import "echarts/lib/component/dataZoom";
 import "echarts/lib/component/legend";
 import "echarts/lib/component/title";
+var pick = require("lodash.pick");
+var cloneDeep = require("lodash.clonedeep");
 
 import dataCountries from "./data.countries.json";
 
 const dataLineCountries = {
-  legend: { show: false, selected: {} },
+  legend: { show: true, selected: {} },
   tooltip: {},
   dataset: {
     dimensions: [],
     source: []
   },
   grid: {
-    left: "7%",
-    top: "2.5%"
+    left: "7%"
   },
   xAxis: { type: "category" },
   yAxis: { type: "log" },
@@ -110,7 +111,14 @@ const dataLineCountries = {
   }
 };
 
-const defaultCountries = ["France", "Italy", "Canada", "Germany", "Spain", "Japan"]
+const defaultCountries = [
+  "France",
+  "Italy",
+  "Canada",
+  "Germany",
+  "Spain",
+  "Japan"
+];
 
 export default {
   name: "World",
@@ -123,7 +131,8 @@ export default {
       model: null,
       filterOptions: null,
       lineCountries: null,
-      stringOptions: null
+      stringOptions: null,
+      dataResponse: null
     };
   },
   methods: {
@@ -134,14 +143,25 @@ export default {
         this.lineCountries.yAxis.type = "value";
       }
     },
-    changeDisplay(val){
-      this.stringOptions.forEach(item => {
-        if (val.includes(item)){
-          this.lineCountries.legend.selected[item] = true
-        } else {
-          this.lineCountries.legend.selected[item] = false
-        }
-      })
+    changeDisplay(val) {
+      if (this.dataResponse !== null) this.setConfig(val);
+    },
+    setConfig(selected) {
+      if (this.dataResponse == null) return;
+      var config = dataLineCountries;
+      const toKeep = Object.keys(this.dataResponse[0]).filter(
+        item => selected.includes(item) || item == "Date"
+      );
+      config.dataset.source = cloneDeep(this.dataResponse);
+      config.dataset.source.forEach((item, index) => {
+        const newobj = pick(config.dataset.source[index], toKeep);
+        config.dataset.source[index] = newobj;
+      });
+      config.series = Array(toKeep.length - 1).fill({
+        type: "line"
+      });
+      config.dataset.dimensions = toKeep;
+      this.lineCountries = cloneDeep(config);
     },
     filterFn(val, update) {
       update(() => {
@@ -161,24 +181,14 @@ export default {
           "https://hub.analythium.io/covid-19/api/v1/data/world/confirmed/index.json"
         )
         .then(response => {
-          var config = dataLineCountries;
-          config.dataset.source = response.data;
-          config.dataset.dimensions = Object.keys(response.data[0]);
-          config.series = Array(Object.keys(response.data[0]).length - 1).fill({
-            type: "line",
-          });
-          const options = config.dataset.dimensions.filter(item => item !== "Date");
-          options.forEach(item => {
-            if (defaultCountries.includes(item)) {
-              config.legend.selected[String(item)] = true
-            } else {
-              config.legend.selected[String(item)] = false
-            }
-          })
-          this.lineCountries = config;
+          this.dataResponse = response.data;
+          const options = Object.keys(this.dataResponse[0]).filter(
+            item => item !== "Date"
+          );
+          this.setConfig(defaultCountries);
           this.filterOptions = options;
           this.stringOptions = options;
-          this.model = config.dataset.dimensions.filter(item => defaultCountries.includes(item));
+          this.model = options.filter(item => defaultCountries.includes(item));
         })
         .catch(() => {
           this.$q.notify({
