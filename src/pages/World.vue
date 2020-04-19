@@ -54,7 +54,7 @@ import "echarts/lib/component/title";
 import dataCountries from "./data.countries.json";
 
 const dataLineCountries = {
-  legend: { show: false },
+  legend: { show: false, selected: {} },
   tooltip: {},
   dataset: {
     dimensions: [],
@@ -167,7 +167,6 @@ export default {
           config.series = Array(Object.keys(response.data[0]).length - 1).fill({
             type: "line",
           });
-          config.legend.selected = {}
           const options = config.dataset.dimensions.filter(item => item !== "Date");
           options.forEach(item => {
             if (defaultCountries.includes(item)) {

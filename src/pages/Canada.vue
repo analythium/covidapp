@@ -2,6 +2,11 @@
   <q-page padding>
     <h4 style="margin: 0 0 1rem;">Canadian provinces and territories</h4>
     <p class="text-body1">Compare provinces and territories within Canada.</p>
+    <div class="row">
+      <div class="col">
+        Deaths<q-toggle v-model="total" @input="changeToggle" label="Total" /> 
+      </div>
+    </div>
     <!-- Plot for Canada -->
     <div class="row">
       <div class="col">
@@ -75,12 +80,13 @@ const dataLineCanada = {
         type: ["line", "bar"],
         title: { line: "Line", bar: "Bar" }
       },
-      restore: {title: "Reset"},
+      restore: { title: "Reset" },
       saveAsImage: { title: "Save" }
     },
-    tooltip: { // same as option.tooltip
-        show: true,
-        position: "left"
+    tooltip: {
+      // same as option.tooltip
+      show: true,
+      position: "left"
     }
   }
 };
@@ -95,7 +101,8 @@ export default {
   },
   data() {
     return {
-      lineCanada: dataLineCanada
+      lineCanada: dataLineCanada,
+      total: true
     };
   }
 };
