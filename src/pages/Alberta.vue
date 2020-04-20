@@ -29,7 +29,7 @@
 <style>
 .echarts {
   width: 100%;
-  height: 65vh;
+  height: 89vh;
 }
 </style>
 
@@ -48,7 +48,12 @@ import dataCanada from "./data.canada.json";
 
 const dataLineCanada = {
   legend: {},
-  tooltip: {},
+    tooltip: {
+        trigger: 'axis',
+        axisPointer: {
+            animation: false
+        }
+    },
   dataset: {
     dimensions: [],
     source: []
@@ -66,15 +71,19 @@ const dataLineCanada = {
     { type: "log", minorTick: { show: true } },
     { type: "log", minorTick: { show: true }, gridIndex: 1 }
   ],
+      axisPointer: {
+        link: {xAxisIndex: 'all'}
+    },
   grid: [
     {
-      bottom: "55%",
-      left: "5%",
+      top: "13%",
+      bottom: "50%",
+      left: "6%",
       right: "6%"
     },
     {
-      top: "55%",
-      left: "5%",
+      top: "60%",
+      left: "6%",
       right: "6%"
     }
   ],
@@ -85,6 +94,7 @@ const dataLineCanada = {
       realtime: true,
       start: 0,
       end: 100,
+      top: "5%",
       xAxisIndex: [0, 1]
     },
     {
@@ -97,6 +107,7 @@ const dataLineCanada = {
   ],
   toolbox: {
     show: true,
+    top: "5%",
     itemSize: 30,
     orient: "vertical",
     showTitle: false,
