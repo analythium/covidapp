@@ -4,7 +4,7 @@
     <p class="text-body1">Compare zones and areas within Alberta.</p>
     <div class="row">
       <div class="col">
-        <q-toolbar>
+        <q-toolbar class="q-pl-none">
           <!-- Deaths
           <q-toggle class="q-mr-sm" v-model="total" @input="changeValue" label="Total" />
           <q-separator vertical />-->
@@ -20,7 +20,7 @@
     <!-- Plot for Canada -->
     <div class="row">
       <div class="col">
-        <v-chart ref="chart" manual-update class="q-mt-lg" autoresize :options="lineCanada" />
+        <v-chart ref="chart" manual-update class="q-mt-sm" autoresize :options="lineCanada" />
       </div>
     </div>
   </q-page>
@@ -29,7 +29,7 @@
 <style>
 .echarts {
   width: 100%;
-  height: 62.5vh;
+  height: 65vh;
 }
 </style>
 

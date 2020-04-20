@@ -28,7 +28,7 @@
     <!-- Plot for Canada vs World -->
     <div class="row">
       <div class="col">
-        <v-chart class="q-mt-lg" autoresize :options="lineCountries" />
+        <v-chart class="q-mt-md" autoresize :options="lineCountries" />
       </div>
     </div>
   </q-page>
