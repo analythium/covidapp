@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <h4 style="margin: 0 0 1rem;">Zones and areas within Alberta</h4>
-    <p class="text-body1">Compare zones and areas within Alberta.</p>
+    <p class="text-body1 q-mb-sm">Compare zones and areas within Alberta.</p>
     <div class="row">
       <div class="col">
         <q-toolbar class="q-pl-none">

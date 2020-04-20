@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <h4 style="margin: 0 0 1rem;">Canadian provinces and territories</h4>
-    <p class="text-body1">Compare provinces and territories within Canada.</p>
+    <p class="text-body1 q-mb-sm">Compare provinces and territories within Canada.</p>
     <div class="row">
       <div class="col">
         <q-toolbar class="q-pl-none">

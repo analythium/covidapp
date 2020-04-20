@@ -2,7 +2,7 @@
   <q-page padding>
     <!-- Cumulative confirmed https://hub.analythium.io/covid-19/api/v1/data/world/confirmed/ -->
     <h4 style="margin: 0 0 1rem;">Canada and other countries</h4>
-    <p class="text-body1">Compare the number of cases in Canada to data from other countries.</p>
+    <p class="text-body1 q-mb-md">Compare the number of cases in Canada to data from other countries.</p>
     <!-- Controls for Canada vs World -->
     <div class="row">
       <div class="col-2">
@@ -37,7 +37,7 @@
 <style>
 .echarts {
   width: 100%;
-  /* height: 100%; */
+  height: 61vh;
 }
 </style>
 
