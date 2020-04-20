@@ -27,7 +27,7 @@
     </div>
     <!-- Plot for Canada vs World -->
     <div class="row">
-      <div class="col">
+      <div class="col" style="height: 60vh">
         <v-chart class="q-mt-md" autoresize :options="lineCountries" />
       </div>
     </div>
@@ -37,7 +37,7 @@
 <style>
 .echarts {
   width: 100%;
-  height: 61vh;
+  height: 100%;
 }
 </style>
 
