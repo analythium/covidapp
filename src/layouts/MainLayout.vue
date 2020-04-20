@@ -1,9 +1,7 @@
 <template>
-  <q-layout view="hHh lpR lff">
-    <q-header
-      elevated
-      class="bg-primary text-white"
-    >
+  <q-layout view="hHh LpR lff">
+    
+    <q-header elevated class="bg-primary text-white">
       <q-toolbar>
         <q-btn
           dense
@@ -16,8 +14,7 @@
         <q-toolbar-title>
           <q-avatar>
             <img src="https://hub.analythium.io/assets/logo/blues3/logo.png" />
-          </q-avatar>
-          COVID-19 App
+          </q-avatar>COVID-19 App
         </q-toolbar-title>
       </q-toolbar>
     </q-header>
@@ -30,17 +27,8 @@
       :width="270"
     >
       <q-list>
-        <q-item-label
-          header
-          class="text-grey-8"
-        >
-          Navigation
-        </q-item-label>
-        <EssentialLink
-          v-for="link in essentialLinks"
-          :key="link.title"
-          v-bind="link"
-        />
+        <q-item-label header class="text-grey-8">Navigation</q-item-label>
+        <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
       </q-list>
     </q-drawer>
 
@@ -52,7 +40,7 @@
       <q-toolbar>
         Footer text
       </q-toolbar>
-    </q-footer> -->
+    </q-footer>-->
   </q-layout>
 </template>
 
@@ -66,7 +54,7 @@ export default {
     EssentialLink
   },
 
-  data () {
+  data() {
     return {
       leftDrawerOpen: false,
       essentialLinks: [

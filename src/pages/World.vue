@@ -2,7 +2,9 @@
   <q-page padding>
     <!-- Cumulative confirmed https://hub.analythium.io/covid-19/api/v1/data/world/confirmed/ -->
     <h4 style="margin: 0 0 1rem;">Canada and other countries</h4>
-    <p class="text-body1 q-mb-md">Compare the number of cases in Canada to data from other countries.</p>
+    <p
+      class="text-body1 q-mb-md"
+    >Compare the number of cases in Canada to data from other countries.</p>
     <!-- Controls for Canada vs World -->
     <div class="row">
       <div class="col-2">
@@ -27,7 +29,7 @@
     </div>
     <!-- Plot for Canada vs World -->
     <div class="row">
-      <div class="col" style="height: 60vh">
+      <div class="col" style="height: 89vh">
         <v-chart class="q-mt-md" autoresize :options="lineCountries" />
       </div>
     </div>
@@ -57,7 +59,12 @@ import dataCountries from "./data.countries.json";
 
 const dataLineCountries = {
   legend: { show: true, selected: {} },
-  tooltip: {},
+  tooltip: {
+    trigger: "axis",
+    axisPointer: {
+      animation: false
+    }
+  },
   dataset: {
     dimensions: [],
     source: []
@@ -141,11 +148,13 @@ export default {
     changeToggle(val) {
       if (val) {
         this.lineCountries.yAxis.type = "log";
-        this.lineCountries.toolbox.feature.magicType.type = this.lineCountries.toolbox.feature.magicType.type.filter(item => item !== "stack")
+        this.lineCountries.toolbox.feature.magicType.type = this.lineCountries.toolbox.feature.magicType.type.filter(
+          item => item !== "stack"
+        );
         this.lineCountries.dataset.source = cloneDeep(this.logDataset);
       } else {
         this.lineCountries.yAxis.type = "value";
-        this.lineCountries.toolbox.feature.magicType.type.push("stack")
+        this.lineCountries.toolbox.feature.magicType.type.push("stack");
         this.lineCountries.dataset.source = cloneDeep(this.regDataset);
       }
     },
@@ -178,7 +187,11 @@ export default {
         config.dataset.source = this.logscale
           ? this.logDataset
           : this.regDataset;
-        this.logscale ? config.toolbox.feature.magicType.type = config.toolbox.feature.magicType.type.filter(item => item !== "stack") : config.toolbox.feature.magicType.type.push("stack")
+        this.logscale
+          ? (config.toolbox.feature.magicType.type = config.toolbox.feature.magicType.type.filter(
+              item => item !== "stack"
+            ))
+          : config.toolbox.feature.magicType.type.push("stack");
         this.lineCountries = cloneDeep(config);
       } catch (error) {
         console.log(error);

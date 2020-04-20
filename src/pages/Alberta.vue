@@ -82,7 +82,7 @@ const dataLineCanada = {
       right: "6%"
     },
     {
-      top: "60%",
+      top: "57.5%",
       left: "6%",
       right: "6%"
     }
