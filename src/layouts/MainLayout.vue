@@ -87,13 +87,13 @@ export default {
           caption: "Zones and areas within Alberta",
           icon: "mdi-map-marker",
           link: "/alberta"
-        },
-        {
-          title: "World Map",
-          caption: "View hotspots of the world",
-          icon: "mdi-globe-model",
-          link: ""
         }
+        // ,{
+        //   title: "World Map",
+        //   caption: "View hotspots of the world",
+        //   icon: "mdi-globe-model",
+        //   link: ""
+        // }
       ]
     };
   }
