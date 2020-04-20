@@ -20,7 +20,7 @@
     <!-- Plot for Canada -->
     <div class="row">
       <div class="col">
-        <v-chart class="q-mt-lg" autoresize :options="lineCanada" />
+        <v-chart ref="chart" manual-update class="q-mt-lg" autoresize :options="lineCanada" />
       </div>
     </div>
   </q-page>
@@ -138,46 +138,54 @@ export default {
     };
   },
   methods: {
+    replaceSeries(g1, g0) {
+        g0.forEach(item => {
+            if (item.name !== "Date") this.lineCanada.series.filter(i => i.id == "grid0-"+item.name)[0].data = cloneDeep(item.data)
+        })
+        g1.forEach(item => {
+            if (item.name !== "Date") this.lineCanada.series.filter(i => i.id == "grid1-"+item.name)[0].data = cloneDeep(item.data)
+        })
+    },
     changeValue() {
-      var newSeries = null;
       if (this.total) {
         if (this.logscale) {
           if (this.rate) {
-            newSeries = [...this.rateData.log, ...this.totalData.log];
+            this.replaceSeries(this.rateData.log, this.totalData.log)
           } else {
-            newSeries = [...this.doubleData.log, ...this.totalData.log];
+            this.replaceSeries(this.doubleData.log, this.totalData.log)
           }
         } else {
           if (this.rate) {
-            newSeries = [...this.rateData.norm, ...this.totalData.norm];
+            this.replaceSeries(this.rateData.norm, this.totalData.norm)
           } else {
-            newSeries = [...this.doubleData.norm, ...this.totalData.norm];
+            this.replaceSeries(this.doubleData.norm, this.totalData.norm)
           }
         }
       } else {
         if (this.logscale) {
           if (this.rate) {
-            newSeries = [...this.rateData.log, ...this.deathData.log];
+            this.replaceSeries(this.rateData.log, this.deathData.log)
           } else {
-            newSeries = [...this.doubleData.log, ...this.deathData.log];
+            this.replaceSeries(this.doubleData.log, this.deathData.log)
           }
         } else {
           if (this.rate) {
-            newSeries = [...this.rateData.norm, ...this.deathData.norm];
+            this.replaceSeries(this.rateData.norm, this.deathData.norm)
           } else {
-            newSeries = [...this.doubleData.norm, ...this.deathData.norm];
+            this.replaceSeries(this.doubleData.norm, this.deathData.norm)
           }
         }
       }
-      newSeries.forEach(i => console.log(i.id, i.data))
       if (this.logscale) {
         this.lineCanada.yAxis[0].type = "log";
         this.lineCanada.yAxis[1].type = "log";
+        this.lineCanada.toolbox.feature.magicType.type = this.lineCanada.toolbox.feature.magicType.type.filter(item => item !== "stack")
       } else {
         this.lineCanada.yAxis[0].type = "value";
         this.lineCanada.yAxis[1].type = "value";
+        this.lineCanada.toolbox.feature.magicType.type.push("stack")
       }
-      this.lineCanada.series = cloneDeep(newSeries);
+      this.$refs.chart.mergeOptions(cloneDeep(this.lineCanada), true);
     },
     changeRateToggle(val) {},
     loadData() {
@@ -190,21 +198,23 @@ export default {
           var rate = this.dataResponse["rate"];
           var double = this.dataResponse["double"];
           this.options = Object.keys(total);
-          var config = dataLineCanada;
+          var config = cloneDeep(dataLineCanada);
           config.xAxis[0].data = total["Date"];
           config.xAxis[1].data = rate["Date"];
           for (let [key, value] of Object.entries(total)) {
+            config.series.push({
+              id: "grid0-" + key,
+              name: key,
+              type: "line",
+              data: value.map(item => (isNaN(item) || item <= 0 ? 1 : item + 1))
+            });
             if (key !== "Date") {
               this.totalData.norm.push({
-                id: "total-" + key,
                 name: key,
-                type: "line",
                 data: value
               });
               this.totalData.log.push({
-                id: "total-" + key,
                 name: key,
-                type: "line",
                 data: value.map(item =>
                   isNaN(item) || item <= 0 ? 1 : item + 1
                 )
@@ -214,15 +224,11 @@ export default {
           for (let [key, value] of Object.entries(deaths)) {
             if (key !== "Date") {
               this.deathData.norm.push({
-                id: "deaths-" + key,
                 name: key,
-                type: "line",
                 data: value
               });
               this.deathData.log.push({
-                id: "deaths-" + key,
                 name: key,
-                type: "line",
                 data: value.map(item =>
                   isNaN(item) || item <= 0 ? 1 : item + 1
                 )
@@ -230,52 +236,45 @@ export default {
             }
           }
           for (let [key, value] of Object.entries(rate)) {
+            config.series.push({
+              id: "grid1-" + key,
+              name: key,
+              type: "line",
+              data: value.map(item =>
+                isNaN(item) || item <= 0 ? 1 : item + 1
+              ),
+              xAxisIndex: 1,
+              yAxisIndex: 1
+            });
             if (key !== "Date") {
               this.rateData.norm.push({
-                id: "rate-" + key,
                 name: key,
-                type: "line",
-                data: value,
-                xAxisIndex: 1,
-                yAxisIndex: 1
+                data: value
               });
               this.rateData.log.push({
-                id: "rate-" + key,
                 name: key,
-                type: "line",
                 data: value.map(item =>
                   isNaN(item) || item <= 0 ? 1 : item + 1
-                ),
-                xAxisIndex: 1,
-                yAxisIndex: 1
+                )
               });
             }
           }
           for (let [key, value] of Object.entries(double)) {
             if (key !== "Date") {
               this.doubleData.norm.push({
-                id: "double-" + key,
                 name: key,
-                type: "line",
-                data: value,
-                xAxisIndex: 1,
-                yAxisIndex: 1
+                data: value
               });
               this.doubleData.log.push({
-                id: "double-" + key,
                 name: key,
-                type: "line",
                 data: value.map(item =>
                   isNaN(item) || item <= 0 ? 1 : item + 1
-                ),
-                xAxisIndex: 1,
-                yAxisIndex: 1
+                )
               });
             }
           }
-          config.series.push(...this.totalData.log);
-          config.series.push(...this.rateData.log);
-          this.lineCanada = cloneDeep(config);
+          this.lineCanada = config
+          this.$refs.chart.mergeOptions(cloneDeep(config), true);
         })
         .catch(() => {
           this.$q.notify({
