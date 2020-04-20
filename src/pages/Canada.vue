@@ -29,7 +29,7 @@
 <style>
 .echarts {
   width: 100%;
-  /* height: 100%; */
+  height: 62.5vh;
 }
 </style>
 
@@ -53,9 +53,6 @@ const dataLineCanada = {
     dimensions: [],
     source: []
   },
-  grid: {
-    left: "7%"
-  },
   xAxis: [
     {
       data: []
@@ -71,12 +68,12 @@ const dataLineCanada = {
   ],
   grid: [
     {
-      bottom: "60%",
+      bottom: "55%",
       left: "6%",
       right: "6%"
     },
     {
-      top: "60%",
+      top: "55%",
       left: "6%",
       right: "6%"
     }
@@ -214,12 +211,14 @@ export default {
           config.xAxis[1].data = rate["Date"];
           for (let [key, value] of Object.entries(total)) {
             if (key !== "Date") {
-                            config.series.push({
-              id: "grid0-" + key,
-              name: key,
-              type: "line",
-              data: value.map(item => (isNaN(item) || item <= 0 ? 1 : item + 1))
-            });
+              config.series.push({
+                id: "grid0-" + key,
+                name: key,
+                type: "line",
+                data: value.map(item =>
+                  isNaN(item) || item <= 0 ? 1 : item + 1
+                )
+              });
               this.totalData.norm.push({
                 name: key,
                 data: value
@@ -247,18 +246,17 @@ export default {
             }
           }
           for (let [key, value] of Object.entries(rate)) {
-
             if (key !== "Date") {
-                            config.series.push({
-              id: "grid1-" + key,
-              name: key,
-              type: "line",
-              data: value.map(item =>
-                isNaN(item) || item <= 0 ? 1 : item + 1
-              ),
-              xAxisIndex: 1,
-              yAxisIndex: 1
-            });
+              config.series.push({
+                id: "grid1-" + key,
+                name: key,
+                type: "line",
+                data: value.map(item =>
+                  isNaN(item) || item <= 0 ? 1 : item + 1
+                ),
+                xAxisIndex: 1,
+                yAxisIndex: 1
+              });
               this.rateData.norm.push({
                 name: key,
                 data: value

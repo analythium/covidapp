@@ -29,7 +29,7 @@
 <style>
 .echarts {
   width: 100%;
-  /* height: 100%; */
+  height: 62.5vh;
 }
 </style>
 
@@ -53,9 +53,6 @@ const dataLineCanada = {
     dimensions: [],
     source: []
   },
-  grid: {
-    left: "7%"
-  },
   xAxis: [
     {
       data: []
@@ -71,13 +68,13 @@ const dataLineCanada = {
   ],
   grid: [
     {
-      bottom: "60%",
-      left: "6%",
+      bottom: "55%",
+      left: "5%",
       right: "6%"
     },
     {
-      top: "60%",
-      left: "6%",
+      top: "55%",
+      left: "5%",
       right: "6%"
     }
   ],
