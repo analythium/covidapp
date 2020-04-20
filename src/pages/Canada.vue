@@ -6,14 +6,14 @@
       <div class="col">
         <q-toolbar>
           Deaths
-          <q-toggle class="q-mr-sm" v-model="total" @input="changeToggle" label="Total" />
+          <q-toggle class="q-mr-sm" v-model="total" @input="changeValue" label="Total" />
           <q-separator vertical />
-          <q-toggle class="q-mr-sm" v-model="logscale" @input="changeLogToggle" label="Log scale" />
+          <q-toggle class="q-mr-sm" v-model="logscale" @input="changeValue" label="Log scale" />
           <q-separator vertical />
           <div class="q-ml-sm">
-              Doubling Time
-          <q-toggle v-model="rate" @input="changeRateToggle" label="Daily % Rate" />
-          </div> 
+            Doubling Time
+            <q-toggle v-model="rate" @input="changeValue" label="Daily % Rate" />
+          </div>
         </q-toolbar>
       </div>
     </div>
@@ -56,28 +56,44 @@ const dataLineCanada = {
   grid: {
     left: "7%"
   },
-  xAxis: { type: "category" },
-  yAxis: { type: "log", minorTick: {show: true} },
+  xAxis: [
+    {
+      data: []
+    },
+    {
+      data: [],
+      gridIndex: 1
+    }
+  ],
+  yAxis: [
+    { type: "log", minorTick: { show: true } },
+    { type: "log", minorTick: { show: true }, gridIndex: 1 }
+  ],
+  grid: [
+    {
+      bottom: "60%",
+      left: "7%"
+    },
+    {
+      top: "60%",
+      left: "7%"
+    }
+  ],
   series: [],
   dataZoom: [
     {
-      type: "inside",
-      start: 0,
-      end: 100
-    },
-    {
+      show: true,
+      realtime: true,
       start: 0,
       end: 100,
-      handleIcon:
-        "M10.7,11.9v-1.3H9.3v1.3c-4.9,0.3-8.8,4.4-8.8,9.4c0,5,3.9,9.1,8.8,9.4v1.3h1.3v-1.3c4.9-0.3,8.8-4.4,8.8-9.4C19.5,16.3,15.6,12.2,10.7,11.9z M13.3,24.4H6.7V23h6.6V24.4z M13.3,19.6H6.7v-1.4h6.6V19.6z",
-      handleSize: "80%",
-      handleStyle: {
-        color: "#fff",
-        shadowBlur: 3,
-        shadowColor: "rgba(0, 0, 0, 0.6)",
-        shadowOffsetX: 2,
-        shadowOffsetY: 2
-      }
+      xAxisIndex: [0, 1]
+    },
+    {
+      type: "inside",
+      realtime: true,
+      start: 0,
+      end: 100,
+      xAxisIndex: [0, 1]
     }
   ],
   toolbox: {
@@ -101,9 +117,6 @@ const dataLineCanada = {
     }
   }
 };
-dataLineCanada.dataset.source = dataCanada.source;
-dataLineCanada.dataset.dimensions = dataCanada.dimensions;
-dataLineCanada.series = dataCanada.series;
 
 export default {
   name: "PageIndex",
@@ -112,54 +125,157 @@ export default {
   },
   data() {
     return {
-      lineCanada: dataLineCanada,
+      lineCanada: null,
       logscale: true,
       total: true,
       dataResponse: null,
       options: null,
-      totalData: null,
-      deathData: null,
-      rateData: null,
-      doubleData: null,
+      totalData: { norm: [], log: [] },
+      deathData: { norm: [], log: [] },
+      rateData: { norm: [], log: [] },
+      doubleData: { norm: [], log: [] },
       rate: true
     };
   },
   methods: {
-    changeLogToggle(val) {
-      if (val) {
-        this.lineCanada.yAxis.type = "log";
+    changeValue() {
+      var newSeries = null;
+      if (this.total) {
+        if (this.logscale) {
+          if (this.rate) {
+            newSeries = [...this.rateData.log, ...this.totalData.log];
+          } else {
+            newSeries = [...this.doubleData.log, ...this.totalData.log];
+          }
+        } else {
+          if (this.rate) {
+            newSeries = [...this.rateData.norm, ...this.totalData.norm];
+          } else {
+            newSeries = [...this.doubleData.norm, ...this.totalData.norm];
+          }
+        }
       } else {
-        this.lineCanada.yAxis.type = "value";
+        if (this.logscale) {
+          if (this.rate) {
+            newSeries = [...this.rateData.log, ...this.deathData.log];
+          } else {
+            newSeries = [...this.doubleData.log, ...this.deathData.log];
+          }
+        } else {
+          if (this.rate) {
+            newSeries = [...this.rateData.norm, ...this.deathData.norm];
+          } else {
+            newSeries = [...this.doubleData.norm, ...this.deathData.norm];
+          }
+        }
       }
-    },
-    changeToggle(val) {
-      if (val) {
-        this.lineCanada.dataset.source = cloneDeep(this.dataResponse["numtotal"]);
+      newSeries.forEach(i => console.log(i.id, i.data))
+      if (this.logscale) {
+        this.lineCanada.yAxis[0].type = "log";
+        this.lineCanada.yAxis[1].type = "log";
       } else {
-        this.lineCanada.dataset.source = cloneDeep(this.dataResponse["numdeaths"]);
+        this.lineCanada.yAxis[0].type = "value";
+        this.lineCanada.yAxis[1].type = "value";
       }
+      this.lineCanada.series = cloneDeep(newSeries);
     },
-    changeRateToggle(val){
-    },
-    setConfig(selected) {
-      if (this.dataResponse == null) return;
-      var config = dataLineCanada;
-      this.total ? config.dataset.source = cloneDeep(this.dataResponse["numtotal"]) : config.dataset.source = cloneDeep(this.dataResponse["numdeaths"])
-      this.logscale ? (config.yAxis.type = "log") : (config.yAxis.type = "value");
-      config.series = Array(selected.length - 1).fill({
-        type: "line"
-      });
-      config.dataset.dimensions = selected;
-      this.lineCanada = cloneDeep(config);
-    },
+    changeRateToggle(val) {},
     loadData() {
       this.$axios
         .get("https://hub.analythium.io/covid-19/api/v1/data/canada/index.json")
         .then(response => {
           this.dataResponse = response.data;
           var total = this.dataResponse["numtotal"];
-          this.options = Object.keys(total[total.length - 1]);
-          this.setConfig(this.options);
+          var deaths = this.dataResponse["numdeaths"];
+          var rate = this.dataResponse["rate"];
+          var double = this.dataResponse["double"];
+          this.options = Object.keys(total);
+          var config = dataLineCanada;
+          config.xAxis[0].data = total["Date"];
+          config.xAxis[1].data = rate["Date"];
+          for (let [key, value] of Object.entries(total)) {
+            if (key !== "Date") {
+              this.totalData.norm.push({
+                id: "total-" + key,
+                name: key,
+                type: "line",
+                data: value
+              });
+              this.totalData.log.push({
+                id: "total-" + key,
+                name: key,
+                type: "line",
+                data: value.map(item =>
+                  isNaN(item) || item <= 0 ? 1 : item + 1
+                )
+              });
+            }
+          }
+          for (let [key, value] of Object.entries(deaths)) {
+            if (key !== "Date") {
+              this.deathData.norm.push({
+                id: "deaths-" + key,
+                name: key,
+                type: "line",
+                data: value
+              });
+              this.deathData.log.push({
+                id: "deaths-" + key,
+                name: key,
+                type: "line",
+                data: value.map(item =>
+                  isNaN(item) || item <= 0 ? 1 : item + 1
+                )
+              });
+            }
+          }
+          for (let [key, value] of Object.entries(rate)) {
+            if (key !== "Date") {
+              this.rateData.norm.push({
+                id: "rate-" + key,
+                name: key,
+                type: "line",
+                data: value,
+                xAxisIndex: 1,
+                yAxisIndex: 1
+              });
+              this.rateData.log.push({
+                id: "rate-" + key,
+                name: key,
+                type: "line",
+                data: value.map(item =>
+                  isNaN(item) || item <= 0 ? 1 : item + 1
+                ),
+                xAxisIndex: 1,
+                yAxisIndex: 1
+              });
+            }
+          }
+          for (let [key, value] of Object.entries(double)) {
+            if (key !== "Date") {
+              this.doubleData.norm.push({
+                id: "double-" + key,
+                name: key,
+                type: "line",
+                data: value,
+                xAxisIndex: 1,
+                yAxisIndex: 1
+              });
+              this.doubleData.log.push({
+                id: "double-" + key,
+                name: key,
+                type: "line",
+                data: value.map(item =>
+                  isNaN(item) || item <= 0 ? 1 : item + 1
+                ),
+                xAxisIndex: 1,
+                yAxisIndex: 1
+              });
+            }
+          }
+          config.series.push(...this.totalData.log);
+          config.series.push(...this.rateData.log);
+          this.lineCanada = cloneDeep(config);
         })
         .catch(() => {
           this.$q.notify({

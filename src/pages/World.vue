@@ -66,7 +66,7 @@ const dataLineCountries = {
     left: "7%"
   },
   xAxis: { type: "category" },
-  yAxis: { type: "log", logBase: 1000000, minorTick: {show: true} },
+  yAxis: { type: "log", minorTick: { show: true } },
   series: [],
   dataZoom: [
     {
@@ -98,7 +98,7 @@ const dataLineCountries = {
       dataZoom: { title: { zoom: "Zoom", back: "Undo" } },
       magicType: {
         type: ["line", "bar"],
-        title: { line: "Line", bar: "Bar" }
+        title: { line: "Line", bar: "Bar", stack: "Stacked" }
       },
       restore: { title: "Reset" },
       saveAsImage: { title: "Save" }
@@ -132,15 +132,21 @@ export default {
       filterOptions: null,
       lineCountries: null,
       stringOptions: null,
-      dataResponse: null
+      dataResponse: null,
+      logDataset: null,
+      regDataset: null
     };
   },
   methods: {
     changeToggle(val) {
       if (val) {
         this.lineCountries.yAxis.type = "log";
+        this.lineCountries.toolbox.feature.magicType.type = this.lineCountries.toolbox.feature.magicType.type.filter(item => item !== "stack")
+        this.lineCountries.dataset.source = cloneDeep(this.logDataset);
       } else {
         this.lineCountries.yAxis.type = "value";
+        this.lineCountries.toolbox.feature.magicType.type.push("stack")
+        this.lineCountries.dataset.source = cloneDeep(this.regDataset);
       }
     },
     changeDisplay(val) {
@@ -148,23 +154,35 @@ export default {
     },
     setConfig(selected) {
       if (this.dataResponse == null) return;
-      var config = dataLineCountries;
-      const toKeep = Object.keys(this.dataResponse[0]).filter(
-        item => selected.includes(item) || item == "Date"
-      );
-      config.dataset.source = cloneDeep(this.dataResponse);
-      config.dataset.source.forEach((item, index) => {
-        const newobj = pick(config.dataset.source[index], toKeep);
-        config.dataset.source[index] = newobj;
-      });
-      config.series = Array(toKeep.length - 1).fill({
-        type: "line"
-      });
-      config.dataset.dimensions = toKeep;
-      this.logscale
-        ? (config.yAxis.type = "log")
-        : (config.yAxis.type = "value");
-      this.lineCountries = cloneDeep(config);
+      try {
+        var config = dataLineCountries;
+        const toKeep = Object.keys(this.dataResponse[0]).filter(
+          item => selected.includes(item) || item == "Date"
+        );
+        this.regDataset = cloneDeep(this.dataResponse);
+        this.logDataset = cloneDeep(this.dataResponse);
+        this.regDataset.forEach((item, index) => {
+          const newobj = pick(this.regDataset[index], toKeep);
+          var logobj = cloneDeep(newobj);
+          this.regDataset[index] = newobj;
+          for (let [key, value] of Object.entries(logobj)) {
+            if (key !== "Date") logobj[key] = value + 1;
+          }
+          this.logDataset[index] = logobj;
+        });
+        config.series = Array(toKeep.length - 1).fill({
+          type: "line"
+        });
+        config.dataset.dimensions = toKeep;
+        config.yAxis.type = this.logscale ? "log" : "value";
+        config.dataset.source = this.logscale
+          ? this.logDataset
+          : this.regDataset;
+        this.logscale ? config.toolbox.feature.magicType.type = config.toolbox.feature.magicType.type.filter(item => item !== "stack") : config.toolbox.feature.magicType.type.push("stack")
+        this.lineCountries = cloneDeep(config);
+      } catch (error) {
+        console.log(error);
+      }
     },
     filterFn(val, update) {
       update(() => {
