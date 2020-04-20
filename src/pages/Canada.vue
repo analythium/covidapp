@@ -11,7 +11,7 @@
           <q-toggle class="q-mr-sm" v-model="logscale" @input="changeValue" label="Log scale" />
           <q-separator vertical />
           <div class="q-ml-sm">
-            Doubling Time
+            Doubling Time Days
             <q-toggle v-model="rate" @input="changeValue" label="Daily % Rate" />
           </div>
         </q-toolbar>
@@ -19,7 +19,7 @@
     </div>
     <!-- Plot for Canada -->
     <div class="row">
-      <div class="col">
+      <div class="col" style="height: 89vh">
         <v-chart ref="chart" manual-update class="q-mt-sm" autoresize :options="lineCanada" />
       </div>
     </div>
@@ -29,7 +29,7 @@
 <style>
 .echarts {
   width: 100%;
-  height: 89vh;
+  height: 100%;
 }
 </style>
 
@@ -64,12 +64,14 @@ const dataLineCanada = {
     },
     {
       data: [],
-      gridIndex: 1
+      gridIndex: 1,
+      name:"Date", 
+      nameGap: 30, nameLocation: "middle"
     }
   ],
   yAxis: [
-    { type: "log", minorTick: { show: true } },
-    { type: "log", minorTick: { show: true }, gridIndex: 1 }
+    { type: "log", minorTick: { show: true }, name:"Total Cases (log)", nameGap: 50, nameLocation: "middle" },
+    { type: "value", minorTick: { show: true }, name:"Daily % Rate", nameGap: 50, nameLocation: "middle", gridIndex: 1 }
   ],
       axisPointer: {
         link: {xAxisIndex: 'all'}
@@ -77,14 +79,14 @@ const dataLineCanada = {
   grid: [
     {
       top: "18%",
-      bottom: "50%",
+      bottom: "40%",
       left: "6%",
-      right: "6%"
+      right: "12%"
     },
     {
-      top: "57.5%",
+      top: "67.5%",
       left: "6%",
-      right: "6%"
+      right: "12%"
     }
   ],
   series: [],
@@ -107,7 +109,8 @@ const dataLineCanada = {
   ],
   toolbox: {
     show: true,
-    top: "5%",
+    top: "9%",
+    right: "2.5%",
     itemSize: 30,
     orient: "vertical",
     showTitle: false,
@@ -166,41 +169,55 @@ export default {
       if (this.total) {
         if (this.logscale) {
           if (this.rate) {
-            this.replaceSeries(this.rateData.log, this.totalData.log);
+            this.replaceSeries(this.rateData.norm, this.totalData.log);
+            this.lineCanada.yAxis[1].name = "Daily % Rate"
+            this.lineCanada.yAxis[0].name = "Total Cases (log)"
           } else {
-            this.replaceSeries(this.doubleData.log, this.totalData.log);
+            this.replaceSeries(this.doubleData.norm, this.totalData.log);
+            this.lineCanada.yAxis[1].name = "Doubling Time Days"
+            this.lineCanada.yAxis[0].name = "Total Cases (log)"
           }
         } else {
           if (this.rate) {
             this.replaceSeries(this.rateData.norm, this.totalData.norm);
+            this.lineCanada.yAxis[1].name = "Daily % Rate"
+            this.lineCanada.yAxis[0].name = "Total Cases"
           } else {
             this.replaceSeries(this.doubleData.norm, this.totalData.norm);
+            this.lineCanada.yAxis[1].name = "Doubling Time Days"
+            this.lineCanada.yAxis[0].name = "Total Cases"
           }
         }
       } else {
         if (this.logscale) {
           if (this.rate) {
-            this.replaceSeries(this.rateData.log, this.deathData.log);
+            this.replaceSeries(this.rateData.norm, this.deathData.log);
+            this.lineCanada.yAxis[1].name = "Daily % Rate"
+            this.lineCanada.yAxis[0].name = "Total Deaths (log)"
           } else {
-            this.replaceSeries(this.doubleData.log, this.deathData.log);
+            this.replaceSeries(this.doubleData.norm, this.deathData.log);
+            this.lineCanada.yAxis[1].name = "Doubling Time Days"
+            this.lineCanada.yAxis[0].name = "Total Deaths (log)"
           }
         } else {
           if (this.rate) {
             this.replaceSeries(this.rateData.norm, this.deathData.norm);
+            this.lineCanada.yAxis[1].name = "Daily % Rate"
+            this.lineCanada.yAxis[0].name = "Total Deaths"
           } else {
             this.replaceSeries(this.doubleData.norm, this.deathData.norm);
+            this.lineCanada.yAxis[1].name = "Doubling Time"
+            this.lineCanada.yAxis[0].name = "Total Deaths"
           }
         }
       }
       if (this.logscale) {
         this.lineCanada.yAxis[0].type = "log";
-        this.lineCanada.yAxis[1].type = "log";
         this.lineCanada.toolbox.feature.magicType.type = this.lineCanada.toolbox.feature.magicType.type.filter(
           item => item !== "stack"
         );
       } else {
         this.lineCanada.yAxis[0].type = "value";
-        this.lineCanada.yAxis[1].type = "value";
         this.lineCanada.toolbox.feature.magicType.type.push("stack");
       }
       this.$refs.chart.mergeOptions(cloneDeep(this.lineCanada), true);
@@ -261,9 +278,7 @@ export default {
                 id: "grid1-" + key,
                 name: key,
                 type: "line",
-                data: value.map(item =>
-                  isNaN(item) || item <= 0 ? 1 : item + 1
-                ),
+                data: value,
                 xAxisIndex: 1,
                 yAxisIndex: 1
               });

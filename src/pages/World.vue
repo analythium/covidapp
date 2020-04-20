@@ -73,7 +73,7 @@ const dataLineCountries = {
     left: "7%"
   },
   xAxis: { type: "category" },
-  yAxis: { type: "log", minorTick: { show: true } },
+  yAxis: { type: "log", minorTick: { show: true }, name:"Total Cases (log)", nameGap: 60, nameLocation: "middle" },
   series: [],
   dataZoom: [
     {
@@ -152,10 +152,12 @@ export default {
           item => item !== "stack"
         );
         this.lineCountries.dataset.source = cloneDeep(this.logDataset);
+        this.lineCountries.yAxis.name = "Total Cases (log)"
       } else {
         this.lineCountries.yAxis.type = "value";
         this.lineCountries.toolbox.feature.magicType.type.push("stack");
         this.lineCountries.dataset.source = cloneDeep(this.regDataset);
+        this.lineCountries.yAxis.name = "Total Cases"
       }
     },
     changeDisplay(val) {
