@@ -213,13 +213,13 @@ export default {
           config.xAxis[0].data = total["Date"];
           config.xAxis[1].data = rate["Date"];
           for (let [key, value] of Object.entries(total)) {
-            config.series.push({
+            if (key !== "Date") {
+                            config.series.push({
               id: "grid0-" + key,
               name: key,
               type: "line",
               data: value.map(item => (isNaN(item) || item <= 0 ? 1 : item + 1))
             });
-            if (key !== "Date") {
               this.totalData.norm.push({
                 name: key,
                 data: value
@@ -247,7 +247,9 @@ export default {
             }
           }
           for (let [key, value] of Object.entries(rate)) {
-            config.series.push({
+
+            if (key !== "Date") {
+                            config.series.push({
               id: "grid1-" + key,
               name: key,
               type: "line",
@@ -257,7 +259,6 @@ export default {
               xAxisIndex: 1,
               yAxisIndex: 1
             });
-            if (key !== "Date") {
               this.rateData.norm.push({
                 name: key,
                 data: value
