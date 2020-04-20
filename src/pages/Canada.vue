@@ -72,11 +72,13 @@ const dataLineCanada = {
   grid: [
     {
       bottom: "60%",
-      left: "7%"
+      left: "6%",
+      right: "6%"
     },
     {
       top: "60%",
-      left: "7%"
+      left: "6%",
+      right: "6%"
     }
   ],
   series: [],
@@ -98,6 +100,7 @@ const dataLineCanada = {
   ],
   toolbox: {
     show: true,
+    top: "5%",
     itemSize: 30,
     orient: "vertical",
     showTitle: false,
@@ -139,51 +142,59 @@ export default {
   },
   methods: {
     replaceSeries(g1, g0) {
-        g0.forEach(item => {
-            if (item.name !== "Date") this.lineCanada.series.filter(i => i.id == "grid0-"+item.name)[0].data = cloneDeep(item.data)
-        })
-        g1.forEach(item => {
-            if (item.name !== "Date") this.lineCanada.series.filter(i => i.id == "grid1-"+item.name)[0].data = cloneDeep(item.data)
-        })
+      g0.forEach(item => {
+        if (item.name !== "Date")
+          this.lineCanada.series.filter(
+            i => i.id == "grid0-" + item.name
+          )[0].data = cloneDeep(item.data);
+      });
+      g1.forEach(item => {
+        if (item.name !== "Date")
+          this.lineCanada.series.filter(
+            i => i.id == "grid1-" + item.name
+          )[0].data = cloneDeep(item.data);
+      });
     },
     changeValue() {
       if (this.total) {
         if (this.logscale) {
           if (this.rate) {
-            this.replaceSeries(this.rateData.log, this.totalData.log)
+            this.replaceSeries(this.rateData.log, this.totalData.log);
           } else {
-            this.replaceSeries(this.doubleData.log, this.totalData.log)
+            this.replaceSeries(this.doubleData.log, this.totalData.log);
           }
         } else {
           if (this.rate) {
-            this.replaceSeries(this.rateData.norm, this.totalData.norm)
+            this.replaceSeries(this.rateData.norm, this.totalData.norm);
           } else {
-            this.replaceSeries(this.doubleData.norm, this.totalData.norm)
+            this.replaceSeries(this.doubleData.norm, this.totalData.norm);
           }
         }
       } else {
         if (this.logscale) {
           if (this.rate) {
-            this.replaceSeries(this.rateData.log, this.deathData.log)
+            this.replaceSeries(this.rateData.log, this.deathData.log);
           } else {
-            this.replaceSeries(this.doubleData.log, this.deathData.log)
+            this.replaceSeries(this.doubleData.log, this.deathData.log);
           }
         } else {
           if (this.rate) {
-            this.replaceSeries(this.rateData.norm, this.deathData.norm)
+            this.replaceSeries(this.rateData.norm, this.deathData.norm);
           } else {
-            this.replaceSeries(this.doubleData.norm, this.deathData.norm)
+            this.replaceSeries(this.doubleData.norm, this.deathData.norm);
           }
         }
       }
       if (this.logscale) {
         this.lineCanada.yAxis[0].type = "log";
         this.lineCanada.yAxis[1].type = "log";
-        this.lineCanada.toolbox.feature.magicType.type = this.lineCanada.toolbox.feature.magicType.type.filter(item => item !== "stack")
+        this.lineCanada.toolbox.feature.magicType.type = this.lineCanada.toolbox.feature.magicType.type.filter(
+          item => item !== "stack"
+        );
       } else {
         this.lineCanada.yAxis[0].type = "value";
         this.lineCanada.yAxis[1].type = "value";
-        this.lineCanada.toolbox.feature.magicType.type.push("stack")
+        this.lineCanada.toolbox.feature.magicType.type.push("stack");
       }
       this.$refs.chart.mergeOptions(cloneDeep(this.lineCanada), true);
     },
@@ -273,7 +284,7 @@ export default {
               });
             }
           }
-          this.lineCanada = config
+          this.lineCanada = config;
           this.$refs.chart.mergeOptions(cloneDeep(config), true);
         })
         .catch(() => {

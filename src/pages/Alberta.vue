@@ -72,11 +72,13 @@ const dataLineCanada = {
   grid: [
     {
       bottom: "60%",
-      left: "7%"
+      left: "6%",
+      right: "6%"
     },
     {
       top: "60%",
-      left: "7%"
+      left: "6%",
+      right: "6%"
     }
   ],
   series: [],
@@ -127,7 +129,7 @@ export default {
     return {
       lineCanada: null,
       logscale: true,
-    //   total: true,
+      //   total: true,
       dataResponse: null,
       options: null,
       totalData: { norm: [], log: [] },
