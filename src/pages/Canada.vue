@@ -1,26 +1,49 @@
 <template>
   <q-page padding>
     <h4 style="margin: 0 0 1rem;">Canadian provinces and territories</h4>
-    <p class="text-body1 q-mb-sm">Compare provinces and territories within Canada.</p>
+    <p class="text-body1 q-mb-sm">Compare provinces and territories within Canada. Toggle view to the logarithmic scale and back for the top chart. The bottom chart shows percent daily change based on rate of change during the previous 4 days. The doubling day show how long it takes the case numbers to double given the growth rate based on the previous 4 days.</p>
     <div class="row">
       <div class="col">
         <q-toolbar class="q-pl-none">
           Deaths
-          <q-toggle class="q-mr-sm" v-model="total" @input="changeValue" label="Total" />
+          <q-toggle
+            class="q-mr-sm"
+            v-model="total"
+            @input="changeValue"
+            label="Total"
+          />
           <q-separator vertical />
-          <q-toggle class="q-mr-sm" v-model="logscale" @input="changeValue" label="Log scale" />
+          <q-toggle
+            class="q-mr-sm"
+            v-model="logscale"
+            @input="changeValue"
+            label="Log scale"
+          />
           <q-separator vertical />
           <div class="q-ml-sm">
             Doubling Time Days
-            <q-toggle v-model="rate" @input="changeValue" label="Daily % Rate" />
+            <q-toggle
+              v-model="rate"
+              @input="changeValue"
+              label="Daily % Rate"
+            />
           </div>
         </q-toolbar>
       </div>
     </div>
     <!-- Plot for Canada -->
     <div class="row">
-      <div class="col" style="height: 89vh">
-        <v-chart ref="chart" manual-update class="q-mt-sm" autoresize :options="lineCanada" />
+      <div
+        class="col"
+        style="height: 89vh"
+      >
+        <v-chart
+          ref="chart"
+          manual-update
+          class="q-mt-sm"
+          autoresize
+          :options="lineCanada"
+        />
       </div>
     </div>
   </q-page>
@@ -48,12 +71,12 @@ import dataCanada from "./data.canada.json";
 
 const dataLineCanada = {
   legend: {},
-    tooltip: {
-        trigger: 'axis',
-        axisPointer: {
-            animation: false
-        }
-    },
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      animation: false
+    }
+  },
   dataset: {
     dimensions: [],
     source: []
@@ -65,17 +88,17 @@ const dataLineCanada = {
     {
       data: [],
       gridIndex: 1,
-      name:"Date", 
+      name: "Date",
       nameGap: 30, nameLocation: "middle"
     }
   ],
   yAxis: [
-    { type: "log", minorTick: { show: true }, name:"Total Cases (log)", nameGap: 50, nameLocation: "middle" },
-    { type: "value", minorTick: { show: true }, name:"Daily % Rate", nameGap: 50, nameLocation: "middle", gridIndex: 1 }
+    { type: "log", minorTick: { show: true }, name: "Total Cases (log)", nameGap: 50, nameLocation: "middle" },
+    { type: "value", minorTick: { show: true }, name: "Daily % Rate", nameGap: 50, nameLocation: "middle", gridIndex: 1 }
   ],
-      axisPointer: {
-        link: {xAxisIndex: 'all'}
-    },
+  axisPointer: {
+    link: { xAxisIndex: 'all' }
+  },
   grid: [
     {
       top: "18%",
@@ -136,7 +159,7 @@ export default {
   components: {
     "v-chart": ECharts
   },
-  data() {
+  data () {
     return {
       lineCanada: null,
       logscale: true,
@@ -151,7 +174,7 @@ export default {
     };
   },
   methods: {
-    replaceSeries(g1, g0) {
+    replaceSeries (g1, g0) {
       g0.forEach(item => {
         if (item.name !== "Date")
           this.lineCanada.series.filter(
@@ -165,7 +188,7 @@ export default {
           )[0].data = cloneDeep(item.data);
       });
     },
-    changeValue() {
+    changeValue () {
       if (this.total) {
         if (this.logscale) {
           if (this.rate) {
@@ -222,8 +245,8 @@ export default {
       }
       this.$refs.chart.mergeOptions(cloneDeep(this.lineCanada), true);
     },
-    changeRateToggle(val) {},
-    loadData() {
+    changeRateToggle (val) { },
+    loadData () {
       this.$axios
         .get("https://hub.analythium.io/covid-19/api/v1/data/canada/index.json")
         .then(response => {
@@ -323,7 +346,7 @@ export default {
         });
     }
   },
-  mounted() {
+  mounted () {
     this.loadData();
   }
 };

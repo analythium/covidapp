@@ -1,5 +1,5 @@
 <template>
-  <q-page>
+  <q-page padding>
     <h4
       class="q-mx-md"
       style="margin: 0 0 1rem;"

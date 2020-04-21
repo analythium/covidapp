@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <h4 style="margin: 0 0 1rem;">Zones and areas within Alberta</h4>
-    <p class="text-body1 q-mb-sm">Compare zones and areas within Alberta.</p>
+    <p class="text-body1 q-mb-sm">Compare zones and areas within Alberta. Toggle view to the logarithmic scale and back for the top chart. The bottom chart shows percent daily change based on rate of change during the previous 4 days. The doubling day show how long it takes the case numbers to double given the growth rate based on the previous 4 days.</p>
     <div class="row">
       <div class="col">
         <q-toolbar class="q-pl-none">
@@ -41,6 +41,8 @@
         />
       </div>
     </div>
+    <h4 style="margin: 0 0 1rem;">Animated map</h4>
+    <p class="text-body1 q-mb-sm">Number of confirmed cases over time in the different geographic areas in Alberta.</p>
     <div class="row">
       <div class="col">
         <img src="https://github.com/analythium/covid-19/raw/master/misc/covid-ab.gif">
