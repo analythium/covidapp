@@ -2,13 +2,15 @@
   <q-page padding>
     <!-- Cumulative confirmed https://hub.analythium.io/covid-19/api/v1/data/world/confirmed/ -->
     <h4 style="margin: 0 0 1rem;">Canada and other countries</h4>
-    <p
-      class="text-body1 q-mb-md"
-    >Compare the number of cases in Canada to data from other countries.</p>
+    <p class="text-body1 q-mb-md">Compare the number of cases in Canada to data from other countries.</p>
     <!-- Controls for Canada vs World -->
     <div class="row">
       <div class="col-2">
-        <q-toggle v-model="logscale" @input="changeToggle" label="Log scale" />
+        <q-toggle
+          v-model="logscale"
+          @input="changeToggle"
+          label="Log scale"
+        />
       </div>
       <div class="col-10">
         <q-select
@@ -29,8 +31,29 @@
     </div>
     <!-- Plot for Canada vs World -->
     <div class="row">
-      <div class="col" style="height: 89vh">
-        <v-chart class="q-mt-md" autoresize :options="lineCountries" />
+      <div
+        class="col"
+        style="height: 89vh"
+      >
+        <v-chart
+          class="q-mx-md"
+          autoresize
+          :options="lineCountries"
+        />
+      </div>
+    </div>
+    <h4
+      class="q-mx-md"
+      style="margin: 0 0 1rem;"
+    >Map of confirmed cases</h4>
+    <p class="text-body1 q-mb-md">Latest number of confirmed cases worldwide.</p>
+    <div class="row q-mx-md">
+      <div class="col">
+        <iframe
+          width="100%"
+          height="400"
+          src="https://hub.analythium.io/covid-19/map.html"
+        ></iframe>
       </div>
     </div>
   </q-page>
@@ -73,7 +96,7 @@ const dataLineCountries = {
     left: "7%"
   },
   xAxis: { type: "category" },
-  yAxis: { type: "log", minorTick: { show: true }, name:"Total Cases (log)", nameGap: 60, nameLocation: "middle" },
+  yAxis: { type: "log", minorTick: { show: true }, name: "Total Cases (log)", nameGap: 60, nameLocation: "middle" },
   series: [],
   dataZoom: [
     {
@@ -132,7 +155,7 @@ export default {
   components: {
     "v-chart": ECharts
   },
-  data() {
+  data () {
     return {
       logscale: true,
       model: null,
@@ -145,7 +168,7 @@ export default {
     };
   },
   methods: {
-    changeToggle(val) {
+    changeToggle (val) {
       if (val) {
         this.lineCountries.yAxis.type = "log";
         this.lineCountries.toolbox.feature.magicType.type = this.lineCountries.toolbox.feature.magicType.type.filter(
@@ -160,10 +183,10 @@ export default {
         this.lineCountries.yAxis.name = "Total Cases"
       }
     },
-    changeDisplay(val) {
+    changeDisplay (val) {
       if (this.dataResponse !== null) this.setConfig(val);
     },
-    setConfig(selected) {
+    setConfig (selected) {
       if (this.dataResponse == null) return;
       try {
         var config = dataLineCountries;
@@ -191,15 +214,15 @@ export default {
           : this.regDataset;
         this.logscale
           ? (config.toolbox.feature.magicType.type = config.toolbox.feature.magicType.type.filter(
-              item => item !== "stack"
-            ))
+            item => item !== "stack"
+          ))
           : config.toolbox.feature.magicType.type.push("stack");
         this.lineCountries = cloneDeep(config);
       } catch (error) {
         console.log(error);
       }
     },
-    filterFn(val, update) {
+    filterFn (val, update) {
       update(() => {
         if (val === "") {
           this.filterOptions = this.stringOptions;
@@ -211,7 +234,7 @@ export default {
         }
       });
     },
-    loadData() {
+    loadData () {
       this.$axios
         .get(
           "https://hub.analythium.io/covid-19/api/v1/data/world/confirmed/index.json"
@@ -238,7 +261,7 @@ export default {
         });
     }
   },
-  mounted() {
+  mounted () {
     this.loadData();
   }
 };

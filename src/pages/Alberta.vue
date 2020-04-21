@@ -8,19 +8,42 @@
           <!-- Deaths
           <q-toggle class="q-mr-sm" v-model="total" @input="changeValue" label="Total" />
           <q-separator vertical />-->
-          <q-toggle class="q-mr-sm" v-model="logscale" @input="changeValue" label="Log scale" />
+          <q-toggle
+            class="q-mr-sm"
+            v-model="logscale"
+            @input="changeValue"
+            label="Log scale"
+          />
           <q-separator vertical />
           <div class="q-ml-sm">
             Doubling Time Days
-            <q-toggle v-model="rate" @input="changeValue" label="Daily % Rate" />
+            <q-toggle
+              v-model="rate"
+              @input="changeValue"
+              label="Daily % Rate"
+            />
           </div>
         </q-toolbar>
       </div>
     </div>
     <!-- Plot for Canada -->
     <div class="row">
-      <div class="col" style="height: 89vh">
-        <v-chart ref="chart" manual-update class="q-mt-sm" autoresize :options="lineCanada" />
+      <div
+        class="col"
+        style="height: 89vh"
+      >
+        <v-chart
+          ref="chart"
+          manual-update
+          class="q-mt-sm"
+          autoresize
+          :options="lineCanada"
+        />
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <img src="https://github.com/analythium/covid-19/raw/master/misc/covid-ab.gif">
       </div>
     </div>
   </q-page>
@@ -150,7 +173,7 @@ export default {
   components: {
     "v-chart": ECharts
   },
-  data() {
+  data () {
     return {
       lineCanada: null,
       logscale: true,
@@ -165,7 +188,7 @@ export default {
     };
   },
   methods: {
-    replaceSeries(g1, g0) {
+    replaceSeries (g1, g0) {
       g0.forEach(item => {
         if (item.name !== "Date")
           this.lineCanada.series.filter(
@@ -179,7 +202,7 @@ export default {
           )[0].data = cloneDeep(item.data);
       });
     },
-    changeValue() {
+    changeValue () {
       if (this.logscale) {
         if (this.rate) {
           this.replaceSeries(this.rateData.norm, this.totalData.log);
@@ -213,8 +236,8 @@ export default {
       }
       this.$refs.chart.mergeOptions(cloneDeep(this.lineCanada), true);
     },
-    changeRateToggle(val) {},
-    loadData() {
+    changeRateToggle (val) { },
+    loadData () {
       this.$axios
         .get(
           "https://hub.analythium.io/covid-19/api/v1/data/alberta/index.json"
@@ -316,7 +339,7 @@ export default {
         });
     }
   },
-  mounted() {
+  mounted () {
     this.loadData();
   }
 };
