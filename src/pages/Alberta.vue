@@ -41,7 +41,7 @@
         />
       </div>
     </div>
-    <h4 style="margin: 0 0 1rem;">Animated map</h4>
+    <h5 style="margin: 0 0 0.5rem;">Animated map</h5>
     <p class="text-body1 q-mb-sm">Number of confirmed cases over time in the different geographic areas in Alberta.</p>
     <div class="row">
       <div class="col">
@@ -100,14 +100,14 @@ const dataLineCanada = {
       type: "log",
       minorTick: { show: true },
       name: "Total Cases (log)",
-      nameGap: 50,
+      nameGap: 28,
       nameLocation: "middle"
     },
     {
       type: "value",
       minorTick: { show: true },
       name: "Daily % Rate",
-      nameGap: 50,
+      nameGap: 28,
       nameLocation: "middle",
       gridIndex: 1
     }

@@ -93,8 +93,8 @@ const dataLineCanada = {
     }
   ],
   yAxis: [
-    { type: "log", minorTick: { show: true }, name: "Total Cases (log)", nameGap: 50, nameLocation: "middle" },
-    { type: "value", minorTick: { show: true }, name: "Daily % Rate", nameGap: 50, nameLocation: "middle", gridIndex: 1 }
+    { type: "log", minorTick: { show: true }, name: "Total Cases (log)", nameGap: 39, nameLocation: "middle" },
+    { type: "value", minorTick: { show: true }, name: "Daily % Rate", nameGap: 28, nameLocation: "middle", gridIndex: 1 }
   ],
   axisPointer: {
     link: { xAxisIndex: 'all' }
