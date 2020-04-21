@@ -42,20 +42,6 @@
         />
       </div>
     </div>
-    <h4
-      class="q-mx-md"
-      style="margin: 0 0 1rem;"
-    >Map of confirmed cases</h4>
-    <p class="text-body1 q-mb-md">Latest number of confirmed cases worldwide.</p>
-    <div class="row q-mx-md">
-      <div class="col">
-        <iframe
-          width="100%"
-          height="400"
-          src="https://hub.analythium.io/covid-19/map.html"
-        ></iframe>
-      </div>
-    </div>
   </q-page>
 </template>
 
