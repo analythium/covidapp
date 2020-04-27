@@ -79,7 +79,8 @@ const dataLineCountries = {
     source: []
   },
   grid: {
-    left: "7%"
+    left: "7%",
+    containLabel: true
   },
   xAxis: { type: "category" },
   yAxis: { type: "log", minorTick: { show: true }, name: "Total Cases (log)", nameGap: 60, nameLocation: "middle" },
