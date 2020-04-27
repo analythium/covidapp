@@ -2,15 +2,15 @@
   <div class="fixed-center text-center">
     <p>
       <img
-        src="~assets/sad.svg"
+        src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/82/SARS-CoV-2_without_background.png/1280px-SARS-CoV-2_without_background.png"
         style="width:30vw;max-width:150px;"
       >
     </p>
     <p class="text-faded">
-      Sorry, nothing here...<strong>(404)</strong>
+      Page not found <strong>(404)</strong>
     </p>
     <q-btn
-      color="secondary"
+      color="primary"
       style="width:200px;"
       to="/"
       label="Go back"

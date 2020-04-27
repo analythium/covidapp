@@ -64,8 +64,6 @@ import "echarts/lib/component/title";
 var pick = require("lodash.pick");
 var cloneDeep = require("lodash.clonedeep");
 
-import dataCountries from "./data.countries.json";
-
 const dataLineCountries = {
   legend: { show: true, selected: {} },
   tooltip: {

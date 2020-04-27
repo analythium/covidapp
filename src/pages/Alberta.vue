@@ -41,13 +41,13 @@
         />
       </div>
     </div>
-    <h5 style="margin: 0 0 0.5rem;">Animated map</h5>
+    <!-- <h5 style="margin: 0 0 0.5rem;">Animated map</h5>
     <p class="text-body1 q-mb-sm">Number of confirmed cases over time in the different geographic areas in Alberta.</p>
     <div class="row">
       <div class="col">
         <img src="https://github.com/analythium/covid-19/raw/master/misc/covid-ab.gif">
       </div>
-    </div>
+    </div> -->
   </q-page>
 </template>
 
@@ -68,8 +68,6 @@ import "echarts/lib/component/dataZoom";
 import "echarts/lib/component/legend";
 import "echarts/lib/component/title";
 var cloneDeep = require("lodash.clonedeep");
-
-import dataCanada from "./data.canada.json";
 
 const dataLineCanada = {
   legend: {},

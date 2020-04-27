@@ -67,8 +67,6 @@ import "echarts/lib/component/legend";
 import "echarts/lib/component/title";
 var cloneDeep = require("lodash.clonedeep");
 
-import dataCanada from "./data.canada.json";
-
 const dataLineCanada = {
   legend: {},
   tooltip: {
