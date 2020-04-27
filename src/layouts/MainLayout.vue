@@ -1,7 +1,10 @@
 <template>
   <q-layout view="hHh LpR lff">
-    
-    <q-header elevated class="bg-primary text-white">
+
+    <q-header
+      elevated
+      class="bg-primary text-white"
+    >
       <q-toolbar>
         <q-btn
           dense
@@ -27,8 +30,15 @@
       :width="270"
     >
       <q-list>
-        <q-item-label header class="text-grey-8">Navigation</q-item-label>
-        <EssentialLink v-for="link in essentialLinks" :key="link.title" v-bind="link" />
+        <q-item-label
+          header
+          class="text-grey-8"
+        >Navigation</q-item-label>
+        <EssentialLink
+          v-for="link in essentialLinks"
+          :key="link.title"
+          v-bind="link"
+        />
       </q-list>
     </q-drawer>
 
@@ -36,11 +46,17 @@
       <router-view />
     </q-page-container>
 
-    <!-- <q-footer class="bg-grey-2 text-black">
+    <q-footer class="bg-grey-2 text-black">
       <q-toolbar>
-        Footer text
+        &copy;&nbsp;2020&nbsp;<a
+          href="https://analythium.io"
+          target="_blank"
+        >Analythium Solutions Inc.</a>&nbsp;&mdash;&nbsp;<a
+          href="https://github.com/analythium/covid-19"
+          target="_blank"
+        >Data sources</a>
       </q-toolbar>
-    </q-footer>-->
+    </q-footer>
   </q-layout>
 </template>
 
@@ -54,7 +70,7 @@ export default {
     EssentialLink
   },
 
-  data() {
+  data () {
     return {
       leftDrawerOpen: false,
       essentialLinks: [
@@ -75,8 +91,8 @@ export default {
           caption: "Zones and areas within Alberta",
           icon: "mdi-map-marker",
           link: "/alberta"
-        }
-        ,{
+        },
+        {
           title: "World Map",
           caption: "View hotspots of the world",
           icon: "mdi-globe-model",
