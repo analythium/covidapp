@@ -77,6 +77,18 @@ const dataLineCanada = {
     },
     axisPointer: {
       animation: false
+    },
+    formatter: function(params){
+      var a = params.sort((a, b) => a.componentIndex > b.componentIndex)
+      var grid0 = params.filter(item => item.seriesId.includes('grid0'))
+      var grid1 = params.filter(item => item.seriesId.includes('grid1'))
+      console.log(grid0)
+      return `Chart 1 (${grid0[0].name})<br />
+            ${grid0.map(item => `${item.marker} ${item.seriesName}: ${item.value}<br/>`).join('')}
+            <br />
+            Chart 2 (${grid1[0].name})<br />
+            ${grid1.map(item => `${item.marker} ${item.seriesName}: ${item.value}<br/>`).join('')}
+            `
     }
   },
   dataset: {
