@@ -1,7 +1,7 @@
 <template>
   <q-page padding>
     <h4 style="margin: 0 0 1rem;">Zones and areas within Alberta</h4>
-    <p class="text-body1 q-mb-sm">Compare zones and areas within Alberta. Toggle view to the logarithmic scale and back for the top chart. The bottom chart shows percent daily change based on rate of change during the previous 4 days. The doubling day show how long it takes the case numbers to double given the growth rate based on the previous 4 days.</p>
+    <p class="text-body1 q-mb-sm">Compare zones and areas within Alberta. Toggle view to the logarithmic scale and back for the top chart. The bottom chart shows percent daily change based on 3-day moving average of daily % change values calculated as 100 &times; (<em>R</em><sub>t</sub> &ndash; 1) where <em>R</em><sub>t</sub> is the rate of change (<em>R</em><sub>t</sub> = <em>N</em><sub>t</sub>/<em>N</em><sub>t&ndash;1</sub>). The doubling day show how long it takes the case numbers to double given the growth rate (log(2)/log(<em>R</em><sub>t</sub>)) also calculated as 3-day moving average.</p>
     <div class="row">
       <div class="col">
         <q-toolbar class="q-pl-none">
@@ -20,7 +20,7 @@
             <q-toggle
               v-model="rate"
               @input="changeValue"
-              label="Daily % Rate"
+              label="Daily % Change"
             />
           </div>
         </q-toolbar>
@@ -108,7 +108,7 @@ const dataLineCanada = {
     {
       type: "value",
       minorTick: { show: true },
-      name: "Daily % Rate",
+      name: "Daily % Change",
       nameGap: 28,
       nameLocation: "middle",
       gridIndex: 1
@@ -205,7 +205,7 @@ export default {
       if (this.logscale) {
         if (this.rate) {
           this.replaceSeries(this.rateData.norm, this.totalData.log);
-          this.lineCanada.yAxis[1].name = "Daily % Rate";
+          this.lineCanada.yAxis[1].name = "Daily % Change";
           this.lineCanada.yAxis[0].name = "Total Cases (log)";
         } else {
           this.replaceSeries(this.doubleData.norm, this.totalData.log);
@@ -215,7 +215,7 @@ export default {
       } else {
         if (this.rate) {
           this.replaceSeries(this.rateData.norm, this.totalData.norm);
-          this.lineCanada.yAxis[1].name = "Daily % Rate";
+          this.lineCanada.yAxis[1].name = "Daily % Change";
           this.lineCanada.yAxis[0].name = "Total Cases";
         } else {
           this.replaceSeries(this.doubleData.norm, this.totalData.norm);
