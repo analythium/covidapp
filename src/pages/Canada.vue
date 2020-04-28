@@ -70,7 +70,11 @@ var cloneDeep = require("lodash.clonedeep");
 const dataLineCanada = {
   legend: {},
   tooltip: {
+    show: true,
     trigger: 'axis',
+    textStyle: {
+      fontSize: 10
+    },
     axisPointer: {
       animation: false
     }
@@ -143,11 +147,6 @@ const dataLineCanada = {
       },
       restore: { title: "Reset" },
       saveAsImage: { title: "Save" }
-    },
-    tooltip: {
-      // same as option.tooltip
-      show: true,
-      position: "left"
     }
   }
 };
