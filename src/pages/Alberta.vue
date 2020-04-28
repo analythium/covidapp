@@ -60,6 +60,7 @@
 
 <script>
 import ECharts from "vue-echarts";
+import ec_og from 'echarts/lib/echarts'
 import "echarts/lib/chart/bar";
 import "echarts/lib/chart/line";
 import "echarts/lib/component/tooltip";
@@ -80,15 +81,16 @@ const dataLineCanada = {
     axisPointer: {
       animation: false
     },
-    formatter: function(params){
+    formatter: function(params, axis){
       var a = params.sort((a, b) => a.componentIndex > b.componentIndex)
       var grid0 = params.filter(item => item.seriesId.includes('grid0'))
       var grid1 = params.filter(item => item.seriesId.includes('grid1'))
-      console.log(grid0)
-      return `Chart 1 (${grid0[0].name})<br />
+      var g0name = ec_og.getInstanceById(document.querySelector(".echarts").attributes.getNamedItem('_echarts_instance_').nodeValue).getOption().yAxis[0].name
+      var g1name = ec_og.getInstanceById(document.querySelector(".echarts").attributes.getNamedItem('_echarts_instance_').nodeValue).getOption().yAxis[1].name
+      return `${g0name} (${grid0[0].name})<br />
             ${grid0.map(item => `${item.marker} ${item.seriesName}: ${item.value}<br/>`).join('')}
             <br />
-            Chart 2 (${grid1[0].name})<br />
+            ${g1name} (${grid1[0].name})<br />
             ${grid1.map(item => `${item.marker} ${item.seriesName}: ${item.value}<br/>`).join('')}
             `
     }
