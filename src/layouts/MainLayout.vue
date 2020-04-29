@@ -81,6 +81,12 @@ export default {
           link: "/"
         },
         {
+          title: "World Map",
+          caption: "View hotspots of the world",
+          icon: "mdi-globe-model",
+          link: "/worldmap"
+        },
+        {
           title: "Canada",
           caption: "Canadian provinces and territories",
           icon: "mdi-leaf-maple",
@@ -93,10 +99,10 @@ export default {
           link: "/alberta"
         },
         {
-          title: "World Map",
-          caption: "View hotspots of the world",
-          icon: "mdi-globe-model",
-          link: "/worldmap"
+          title: "Demography",
+          caption: "Demography data from Alberta",
+          icon: "bar_chart",
+          link: "/demography"
         }
       ]
     };
