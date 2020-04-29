@@ -10,7 +10,7 @@
         <iframe
           frameBorder="0"
           style="height:70vh; width: 100%; margin: 0; padding: 0;"
-          src="https://psolymos.shinyapps.io/CaribouBC/"
+          src="https://psolymos.shinyapps.io/covid19demogr/"
         />
       </div>
     </div>
