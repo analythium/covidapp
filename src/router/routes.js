@@ -7,6 +7,7 @@ const routes = [
       { path: "canada", component: () => import("pages/Canada.vue") },
       { path: "alberta", component: () => import("pages/Alberta.vue") },
       { path: "worldmap", component: () => import("pages/WorldMap.vue") },
+      { path: "demography", component: () => import("pages/Demography.vue") }
     ]
   }
 ];
