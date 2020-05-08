@@ -9,6 +9,8 @@ library(htmltools)
 
 load(url("http://hub.analythium.io/covid-19/data/covid-19.RData"))
 load("areas.RData")
+Areas$Areas <- AA[names(Areas$Population),]
+Areas$Dates <- as.Date(colnames(AA))
 
 ## Areas
 AA <- Areas$Areas
