@@ -99,7 +99,7 @@ export default {
           link: "/alberta"
         },
         {
-          title: "Demography",
+          title: "Zones and Areas",
           caption: "Demography data from Alberta",
           icon: "bar_chart",
           link: "/demography"
