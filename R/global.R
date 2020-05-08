@@ -3,8 +3,92 @@ library(shinymaterial)
 library(ggplot2)
 library(forecast)
 library(mefa4)
+library(sp)
+library(leaflet)
+library(htmltools)
 
 load(url("http://hub.analythium.io/covid-19/data/covid-19.RData"))
+load("areas.RData")
+
+## Areas
+AA <- Areas$Areas
+for (i in 2:ncol(AA))
+    AA[is.na(AA[,i]),i] <- AA[is.na(AA[,i]),i-1]
+A <- AA / (Areas$Population / 1000)
+
+get_zone <- function(zone=NULL) {
+    ss <- if (is.null(zone))
+      rep(TRUE, length(Areas$Regions)) else Areas$Regions == zone
+    list(cases=AA[ss,], incidences=A[ss,], poly=ABsp[ss,])
+}
+#plot(get_zone("Edmonton")$poly)
+#matplot(t(get_zone("Edmonton")$cases), type="l", lty=1, col=1)
+
+make_map <- function(date=NULL, zone=NULL, cases=FALSE, latestmax=TRUE) {
+    Labels <- FALSE
+    if (is.null(date))
+      date <- colnames(AA)[ncol(AA)]
+    z <- get_zone(zone)
+    p <- z$poly
+    p@data$cases <- z$cases[,date]
+    p@data$incidences <- z$incidences[,date]
+    var <- if (cases)
+        p@data$cases else p@data$incidences
+    if (latestmax) {
+      Max <- if (cases)
+          max(z$cases[,ncol(z$cases)]) else max(z$incidences[,ncol(z$incidences)])
+    } else {
+      Max <- max(var)
+    }
+    bins <- seq(0, sqrt(1.1*Max), length.out = 8)^2
+    bins <- unique(bins)
+    bins[1] <- 0.000001
+    bins <- c(0, bins)
+    pal <- colorBin("YlOrRd", domain = range(bins), bins = bins)
+    Zoom <- if (is.null(zone))
+      5 else switch(zone,
+                   "Edmonton"=8,
+                   "Calgary"=7,
+                   "North"=5,
+                   6)
+    labels <- lapply(paste0("<strong>", p@data$ID,
+        "</strong><br/>", p@data$cases, " cases on ", date,
+        "<br/>(", round(p@data$incidences, 3), "/1000 individual)"), htmltools::HTML)
+    bb <- bbox(p)
+    leaflet(p) %>%
+      setView(mean(bb[1,]), mean(bb[2,]), Zoom) %>%
+      addProviderTiles("Esri.OceanBasemap", group = "Esri.OceanBasemap") %>%
+      addProviderTiles("CartoDB.DarkMatter", group = "DarkMatter (CartoDB)") %>%
+      addProviderTiles("OpenStreetMap.Mapnik", group = "OpenStreetmap") %>%
+      addProviderTiles("Esri.WorldImagery", group = "Esri.WorldImagery") %>%
+      addLayersControl(baseGroups = c("OpenStreetmap","Esri.OceanBasemap",
+        "DarkMatter (CartoDB)", "Esri.WorldImagery"),
+        options = layersControlOptions(collapsed = TRUE, autoZIndex = FALSE)) %>%
+      addPolygons(
+        fillColor = ~pal(var),
+        weight = 1,
+        opacity = 1,
+        color = "white",
+        dashArray = "",
+        fillOpacity = 0.7,
+        highlight = highlightOptions(
+          weight = 5,
+          color = "#666",
+          dashArray = "",
+          fillOpacity = 0.7,
+          bringToFront = TRUE),
+        popup = if (Labels) NULL else labels,
+        popupOptions = if (Labels) NULL else popupOptions(),
+        label = if (!Labels) NULL else labels,
+        labelOptions = if (!Labels) NULL else labelOptions(
+          style = list("font-weight" = "normal", padding = "3px 8px"),
+          textsize = "12px",
+          direction = "auto")) %>%
+      addLegend(pal = pal, values = 0:max(bins), opacity = 0.7,
+        title = if (cases) "Cases" else "Cases/1000 person",
+        position = "bottomleft", className = "info legend")
+}
+
 
 ## demography
 
@@ -57,7 +141,7 @@ AB <- droplevels(AB[AB$Zone != "Unknown",])
 ABw$Total  <- rowSums(ABw)
 
 interv <- list(
-"2020-03-12"="gatherings of more than 250 peoplei n Alberta be cancelled",
+"2020-03-12"="gatherings of more than 250 people in Alberta be cancelled",
 "2020-03-17"="Province limits mass gathering. Schools and Universities are closed",
 "2020-03-24"="Alberta Health Services changed their approach to testing, to focus on groups at highest risk of local exposure",
 "2020-04-20"="Cargill closed its High River beef processing plant")
@@ -130,4 +214,5 @@ level=0.95, B=99, ...) {
     colnames(out) <- c("fit", "mean", "se", "median", "lwr", "upr")
     out[,c("fit", "lwr", "upr", "mean", "median", "se")]
 }
+
 

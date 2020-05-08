@@ -15,7 +15,8 @@ server <- function(input, output) {
         p <- ggplot(vv,
                 aes(x=Date, y=Age, color=Gender)) +
             geom_line() +
-            geom_smooth(method = 'gam')
+            geom_smooth(method = 'gam') +
+            scale_y_continuous(limit=c(0,NA))
         if (input$interv1)
             p <- p +
                 geom_vline(xintercept=as.Date(names(interv)[1])) +
@@ -40,7 +41,8 @@ server <- function(input, output) {
         p <- ggplot(AB[AB$Zone==input$zone,],
                 aes(x=Date, y=New)) +
             geom_line() +
-            geom_smooth(method = 'gam')
+            geom_smooth(method = 'gam') +
+            scale_y_continuous(limit=c(0,NA))
         if (input$interv1)
             p <- p +
                 geom_vline(xintercept=as.Date(names(interv)[1])) +
@@ -62,10 +64,52 @@ server <- function(input, output) {
 
     output$plot_pred <- renderPlot({
         req(ABw)
+        tfun <- function(i)
+            as.integer(as.Date(names(interv)[i]) - as.Date("2020-03-06"))
         i <- input$zone
         z <- ets(ABw[[i]])
         plot(forecast(z, 14), main=colnames(ABw)[i],
              xlab="Days since March 6", ylab="Daily new cases")
+        if (input$interv1) {
+            abline(v=tfun(1))
+            abline(v=tfun(1)+14, lty=2)
+        }
+        if (input$interv2) {
+            abline(v=tfun(2))
+            abline(v=tfun(2)+14, lty=2)
+        }
+        if (input$interv3) {
+            abline(v=tfun(3))
+            abline(v=tfun(3)+14, lty=2)
+        }
+        if (input$interv4) {
+            abline(v=tfun(4))
+            abline(v=tfun(4)+14, lty=2)
+        }
+    })
+
+    output$map <- renderLeaflet({
+        req(AA, A)
+        zone <- if (input$zone == "Total")
+            NULL else input$zone
+        make_map(as.character(input$date), zone, !input$incidence)
+    })
+    output$plot_time <- renderPlot({
+        req(AA, A)
+        zone <- if (input$zone == "Total")
+            NULL else input$zone
+        dat <- if (input$incidence)
+            get_zone(zone)$incidences else get_zone(zone)$cases
+        #matplot(t(dat), type="l", lty=1, col=1)
+        vv <- data.frame(
+            Cases=as.numeric(dat),
+            Date=as.Date(rep(colnames(dat), each=nrow(dat))),
+            Area=rep(rownames(dat), ncol(dat)))
+        p <- ggplot(vv, aes(x=Date, y=Cases, group=Area, color=Area)) +
+            geom_line(show.legend = FALSE) +
+            geom_vline(xintercept=input$date) +
+            ylab(if (input$incidence) "Cases / 1000 people" else "Number of cases")
+        p
     })
 
 
