@@ -61,7 +61,7 @@ ui <- material_page(
     material_row(
       material_column(
         width=6,
-        leafletOutput("map", width="100%", height="400px")),
+        leafletOutput("map", width="100%", height="600px")),
       material_column(
         width=6,
         sliderInput("date", "Date", as.Date(colnames(AA)[1]),
