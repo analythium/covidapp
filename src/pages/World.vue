@@ -130,9 +130,9 @@ const defaultCountries = [
   "France",
   "Italy",
   "Canada",
-  "Germany",
   "Spain",
-  "Japan"
+  "Saudi Arabia",
+  "United Arab Emirates"
 ];
 
 export default {
