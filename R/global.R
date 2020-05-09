@@ -94,6 +94,10 @@ make_map <- function(date=NULL, zone=NULL, cases=FALSE, latestmax=TRUE) {
 
 ## demography
 
+PopByZone <- sum_by(Areas$Population, Areas$Regions)[,"x"]
+PopByZone <- c(PopByZone, Total=sum(PopByZone))
+PopByZone <- PopByZone / 1000
+
 a <- "node10"
 for (i in names(out)) {
     if (!is.null(out[[i]]$style) && out[[i]]$style == "bootstrap")
@@ -217,4 +221,47 @@ level=0.95, B=99, ...) {
     out[,c("fit", "lwr", "upr", "mean", "median", "se")]
 }
 
+plot_demogr <- function(zone) {
+        xx <- x[x$zone==zone,]
+        xx <- droplevels(xx[xx$gender %in% names(rev(sort(table(xx$gender))))[1:2],])
+        vct <- Xtab(~ date + gender, xx)
+        vct[vct==0] <- 1
+        vsm <- Xtab(ages ~ date + gender, xx)
+        v <- vsm / vct
+        vv <- mefa4::Melt(as(v, "dgCMatrix"))
+        colnames(vv) <- c("Date", "Gender", "Age")
+        vv$Date <- as.Date(vv$Date)
 
+        p <- ggplot(vv,
+                aes(x=Date, y=Age, color=Gender)) +
+            geom_line() +
+            geom_smooth(method = 'gam') +
+            scale_y_continuous(limit=c(0,NA)) +
+            geom_vline(xintercept=as.Date(names(interv)[2])) +
+            geom_vline(xintercept=as.Date(names(interv)[2])+14, lty=2) +
+            labs(title=zone)
+        if (zone == "Calgary")
+            p <- p +
+                geom_vline(xintercept=as.Date(names(interv)[4]), colour="red") +
+                geom_vline(xintercept=as.Date(names(interv)[4])+14, colour="red", lty=2)
+        p
+}
+
+plot_new <- function(zone, incidence=FALSE) {
+        d <- AB[AB$Zone==zone,]
+        if (incidence)
+            d$New <- d$New / PopByZone[zone]
+        p <- ggplot(d,
+                aes(x=Date, y=New)) +
+            geom_line() +
+            geom_smooth(method = 'gam') +
+            scale_y_continuous(limit=c(0,NA)) +
+            geom_vline(xintercept=as.Date(names(interv)[2])) +
+            geom_vline(xintercept=as.Date(names(interv)[2])+14, lty=2) +
+            labs(title=zone)
+        if (zone == "Calgary")
+            p <- p +
+                geom_vline(xintercept=as.Date(names(interv)[4]), colour="red") +
+                geom_vline(xintercept=as.Date(names(interv)[4])+14, colour="red", lty=2)
+        p
+}

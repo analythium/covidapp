@@ -1,65 +1,25 @@
 server <- function(input, output) {
 
-    output$plot_demogr <- renderPlot({
+    output$plot_demogr1 <- renderPlot({
         req(x)
-        xx <- if (input$zone == "Total")
-            x else x[x$zone==input$zone,]
-        vct <- Xtab(~ date + gender, xx)
-        vct[vct==0] <- 1
-        vsm <- Xtab(ages ~ date + gender, xx)
-        v <- vsm / vct
-        vv <- mefa4::Melt(as(v, "dgCMatrix"))
-        colnames(vv) <- c("Date", "Gender", "Age")
-        vv$Date <- as.Date(vv$Date)
-
-        p <- ggplot(vv,
-                aes(x=Date, y=Age, color=Gender)) +
-            geom_line() +
-            geom_smooth(method = 'gam') +
-            scale_y_continuous(limit=c(0,NA))
-        if (input$interv1)
-            p <- p +
-                geom_vline(xintercept=as.Date(names(interv)[1])) +
-                geom_vline(xintercept=as.Date(names(interv)[1])+14, lty=2)
-        if (input$interv2)
-            p <- p +
-                geom_vline(xintercept=as.Date(names(interv)[2])) +
-                geom_vline(xintercept=as.Date(names(interv)[2])+14, lty=2)
-        if (input$interv3)
-            p <- p +
-                geom_vline(xintercept=as.Date(names(interv)[3])) +
-                geom_vline(xintercept=as.Date(names(interv)[3])+14, lty=2)
-        if (input$interv4)
-            p <- p +
-                geom_vline(xintercept=as.Date(names(interv)[4])) +
-                geom_vline(xintercept=as.Date(names(interv)[4])+14, lty=2)
-        p
+        plot_demogr("Edmonton")
+    })
+    output$plot_demogr2 <- renderPlot({
+        req(x)
+        plot_demogr("Calgary")
     })
 
     output$plot_new <- renderPlot({
         req(AB)
-        p <- ggplot(AB[AB$Zone==input$zone,],
-                aes(x=Date, y=New)) +
-            geom_line() +
-            geom_smooth(method = 'gam') +
-            scale_y_continuous(limit=c(0,NA))
-        if (input$interv1)
-            p <- p +
-                geom_vline(xintercept=as.Date(names(interv)[1])) +
-                geom_vline(xintercept=as.Date(names(interv)[1])+14, lty=2)
-        if (input$interv2)
-            p <- p +
-                geom_vline(xintercept=as.Date(names(interv)[2])) +
-                geom_vline(xintercept=as.Date(names(interv)[2])+14, lty=2)
-        if (input$interv3)
-            p <- p +
-                geom_vline(xintercept=as.Date(names(interv)[3])) +
-                geom_vline(xintercept=as.Date(names(interv)[3])+14, lty=2)
-        if (input$interv4)
-            p <- p +
-                geom_vline(xintercept=as.Date(names(interv)[4])) +
-                geom_vline(xintercept=as.Date(names(interv)[4])+14, lty=2)
-        p
+        plot_new(input$zone, input$incidence)
+    })
+    output$plot_new1 <- renderPlot({
+        req(AB)
+        plot_new("Edmonton")
+    })
+    output$plot_new2 <- renderPlot({
+        req(AB)
+        plot_new("Calgary")
     })
 
     output$plot_pred <- renderPlot({
@@ -67,32 +27,27 @@ server <- function(input, output) {
         tfun <- function(i)
             as.integer(as.Date(names(interv)[i]) - as.Date("2020-03-06"))
         i <- input$zone
-        z <- ets(ABw[[i]])
-        plot(forecast(z, 14), main=colnames(ABw)[i],
-             xlab="Days since March 6", ylab="Daily new cases")
-        if (input$interv1) {
-            abline(v=tfun(1))
-            abline(v=tfun(1)+14, lty=2)
-        }
-        if (input$interv2) {
-            abline(v=tfun(2))
-            abline(v=tfun(2)+14, lty=2)
-        }
-        if (input$interv3) {
-            abline(v=tfun(3))
-            abline(v=tfun(3)+14, lty=2)
-        }
-        if (input$interv4) {
-            abline(v=tfun(4))
-            abline(v=tfun(4)+14, lty=2)
+        y <- ABw[[i]]
+        if (input$incidence)
+            y <- y / PopByZone[input$zone]
+        z <- ets(y)
+        f <- forecast(z, 14)
+        plot(f, main=colnames(ABw)[i],
+             xlab="Days since March 6", ylab="Daily new cases",
+             ylim=c(0, max(f$upper, y)))
+        abline(v=tfun(2))
+        abline(v=tfun(2)+14, lty=2)
+        if (input$zone == "Calgary") {
+            abline(v=tfun(4), col=2)
+            abline(v=tfun(4)+14, lty=2, col=2)
         }
     })
 
     output$map <- renderLeaflet({
         req(AA, A)
-        zone <- if (input$zone == "Total")
-            NULL else input$zone
-        make_map(as.character(input$date), zone, !input$incidence)
+        zone <- if (input$zone2 == "Total")
+            NULL else input$zone2
+        make_map(as.character(input$date), zone, !input$incidence2)
     })
 
     i.active <- NULL
@@ -110,9 +65,9 @@ server <- function(input, output) {
 
     output$plot_time <- renderPlot({
         req(AA, A)
-        zone <- if (input$zone == "Total")
-            NULL else input$zone
-        dat <- if (input$incidence)
+        zone <- if (input$zone2 == "Total")
+            NULL else input$zone2
+        dat <- if (input$incidence2)
             get_zone(zone)$incidences else get_zone(zone)$cases
         #matplot(t(dat), type="l", lty=1, col=1)
         vv <- data.frame(
@@ -122,7 +77,7 @@ server <- function(input, output) {
         p <- ggplot(vv, aes(x=Date, y=Cases, group=Area)) +
             geom_line(colour="grey", show.legend = FALSE) +
             geom_vline(xintercept=input$date) +
-            ylab(if (input$incidence) "Cases / 1000 people" else "Number of cases")
+            ylab(if (input$incidence2) "Cases / 1000 people" else "Number of cases")
         if (!is.null(i.active))
             p <- p + geom_line(
                 aes(x=Date, y=Cases), data=vv[vv$Area == i.active, ],
