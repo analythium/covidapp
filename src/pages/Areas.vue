@@ -3,8 +3,7 @@
     <h4
       class="q-mx-md"
       style="margin: 0 0 1rem;"
-    >Demography</h4>
-    <p class="text-body1 q-mb-md">Demographic drilldown in Alberta.</p>
+    >Alberta cases by geographical zones and areas</h4>
     <div class="row q-mt-md">
       <div class="col">
         <iframe
