@@ -237,17 +237,17 @@ plot_demogr <- function(zone) {
             geom_line() +
             geom_smooth(method = 'gam') +
             scale_y_continuous(limit=c(0,NA)) +
-            geom_vline(xintercept=as.Date(names(interv)[2])) +
-            geom_vline(xintercept=as.Date(names(interv)[2])+14, lty=2) +
+#            geom_vline(xintercept=as.Date(names(interv)[2])) +
+#            geom_vline(xintercept=as.Date(names(interv)[2])+14, lty=2) +
             labs(title=zone)
-        if (zone == "Calgary")
-            p <- p +
-                geom_vline(xintercept=as.Date(names(interv)[4]), colour="red") +
-                geom_vline(xintercept=as.Date(names(interv)[4])+14, colour="red", lty=2)
+#        if (zone == "Calgary")
+#            p <- p +
+#                geom_vline(xintercept=as.Date(names(interv)[4]), colour="red") +
+#                geom_vline(xintercept=as.Date(names(interv)[4])+14, colour="red", lty=2)
         p
 }
 
-plot_new <- function(zone, incidence=FALSE) {
+plot_new <- function(zone, incidence=FALSE, i1=FALSE, i2=FALSE) {
         d <- AB[AB$Zone==zone,]
         if (incidence)
             d$New <- d$New / PopByZone[zone]
@@ -256,12 +256,13 @@ plot_new <- function(zone, incidence=FALSE) {
             geom_line() +
             geom_smooth(method = 'gam') +
             scale_y_continuous(limit=c(0,NA)) +
-            geom_vline(xintercept=as.Date(names(interv)[2])) +
-            geom_vline(xintercept=as.Date(names(interv)[2])+14, lty=2) +
             labs(title=zone)
-        if (zone == "Calgary")
+        if (i1)
+          p <- p + geom_vline(xintercept=as.Date(names(interv)[2])) +
+            geom_vline(xintercept=as.Date(names(interv)[2])+14, lty=2)
+        if (i2 && zone == "Calgary")
             p <- p +
-                geom_vline(xintercept=as.Date(names(interv)[4]), colour="red") +
-                geom_vline(xintercept=as.Date(names(interv)[4])+14, colour="red", lty=2)
+              geom_vline(xintercept=as.Date(names(interv)[4]), colour="red") +
+              geom_vline(xintercept=as.Date(names(interv)[4])+14, colour="red", lty=2)
         p
 }

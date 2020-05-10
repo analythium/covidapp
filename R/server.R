@@ -15,11 +15,11 @@ server <- function(input, output) {
     })
     output$plot_new1 <- renderPlot({
         req(AB)
-        plot_new("Edmonton")
+        plot_new("Edmonton", i1=input$interv1)
     })
     output$plot_new2 <- renderPlot({
         req(AB)
-        plot_new("Calgary")
+        plot_new("Calgary", i1=input$interv2, i2=input$interv3)
     })
 
     output$plot_pred <- renderPlot({
@@ -35,12 +35,12 @@ server <- function(input, output) {
         plot(f, main=colnames(ABw)[i],
              xlab="Days since March 6", ylab="Daily new cases",
              ylim=c(0, max(f$upper, y)))
-        abline(v=tfun(2))
-        abline(v=tfun(2)+14, lty=2)
-        if (input$zone == "Calgary") {
-            abline(v=tfun(4), col=2)
-            abline(v=tfun(4)+14, lty=2, col=2)
-        }
+#        abline(v=tfun(2))
+#        abline(v=tfun(2)+14, lty=2)
+#        if (input$zone == "Calgary") {
+#            abline(v=tfun(4), col=2)
+#            abline(v=tfun(4)+14, lty=2, col=2)
+#        }
     })
 
     output$map <- renderLeaflet({
