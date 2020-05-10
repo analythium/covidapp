@@ -102,7 +102,7 @@ export default {
           title: "Alberta Zones and Areas",
           caption: "Cases and demography data by local areas",
           icon: "bar_chart",
-          link: "/demography"
+          link: "/areas"
         }
       ]
     };
