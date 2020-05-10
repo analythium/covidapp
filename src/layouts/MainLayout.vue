@@ -94,13 +94,13 @@ export default {
         },
         {
           title: "Alberta",
-          caption: "Zones and areas within Alberta",
+          caption: "Health zones in Alberta",
           icon: "mdi-map-marker",
           link: "/alberta"
         },
         {
-          title: "Zones and Areas",
-          caption: "Demography data from Alberta",
+          title: "Alberta Zones and Areas",
+          caption: "Cases and demography data by local areas",
           icon: "bar_chart",
           link: "/demography"
         }
