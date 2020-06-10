@@ -98,9 +98,9 @@ PopByZone <- sum_by(Areas$Population, Areas$Regions)[,"x"]
 PopByZone <- c(PopByZone, Total=sum(PopByZone))
 PopByZone <- PopByZone / 1000
 
-a <- "node10"
+a <- "node11"
 for (i in names(out)) {
-    if (!is.null(out[[i]]$style) && out[[i]]$style == "bootstrap")
+    if (!is.null(out[[i]]$x$style) && out[[i]]$x$style == "bootstrap")
         a <- i
 }
 x <- as.data.frame(t(out[[a]]$x$data))
@@ -247,16 +247,19 @@ plot_demogr <- function(zone) {
         p
 }
 
-plot_new <- function(zone, incidence=FALSE, i1=FALSE, i2=FALSE) {
+plot_new <- function(zone, incidence=FALSE, i1=FALSE, i2=FALSE,
+                     smooth=TRUE) {
         d <- AB[AB$Zone==zone,]
         if (incidence)
             d$New <- d$New / PopByZone[zone]
         p <- ggplot(d,
                 aes(x=Date, y=New)) +
             geom_line() +
-            geom_smooth(method = 'gam') +
             scale_y_continuous(limit=c(0,NA)) +
             labs(title=zone)
+        if (smooth)
+            p <- p + geom_smooth(method = 'gam')
+
         if (i1)
           p <- p + geom_vline(xintercept=as.Date(names(interv)[2])) +
             geom_vline(xintercept=as.Date(names(interv)[2])+14, lty=2)
