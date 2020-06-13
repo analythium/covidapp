@@ -70,8 +70,26 @@ ui <- material_page(
         width=12,
         tags$h5(paste0("Edmonton (population: ",
                      round(PopByZone["Edmonton"]/1000, 2),
-                     "M, total cases: ", sum(ABw$Edmonton), ")")),
-        material_checkbox("interv1", "Alberta lockdown (March 17)"),
+                     "M, total cases: ", sum(ABw$Edmonton), ")"))
+      )
+    ),
+    material_row(
+      material_column(
+        width=3,
+        material_checkbox("interv_e1", "Alberta lockdown (March 17)")
+      ),
+      material_column(
+        width=3,
+        material_checkbox("interv_e3", "Stage 1 reopening (May 14)")
+      ),
+      material_column(
+        width=3,
+        material_checkbox("interv_e4", "Stage 2 reopening (June 12)")
+      )
+    ),
+    material_row(
+      material_column(
+        width=12,
         plotOutput("plot_new1"),
         tags$h5(paste0("Calgary (population: ",
                        round(PopByZone["Calgary"]/1000, 2),
@@ -80,12 +98,20 @@ ui <- material_page(
     ),
     material_row(
       material_column(
-        width=6,
-        material_checkbox("interv2", "Alberta lockdown (March 17)")
+        width=3,
+        material_checkbox("interv_c1", "Alberta lockdown (March 17)")
       ),
       material_column(
-        width=6,
-        material_checkbox("interv3", "Meat processing plant closed (April 22)")
+        width=3,
+        material_checkbox("interv_c2", "Meat processing plant closed (April 22)")
+      ),
+      material_column(
+        width=3,
+        material_checkbox("interv_c3", "Stage 1 reopening (May 14)")
+      ),
+      material_column(
+        width=3,
+        material_checkbox("interv_c4", "Stage 2 reopening (June 12)")
       )
     ),
     material_row(

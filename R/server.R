@@ -15,11 +15,14 @@ server <- function(input, output) {
     })
     output$plot_new1 <- renderPlot({
         req(AB)
-        plot_new("Edmonton", i1=input$interv1)
+        plot_new("Edmonton",
+                 i1=input$interv_e1, i3=input$interv_e3, i4=input$interv_e4)
     })
     output$plot_new2 <- renderPlot({
         req(AB)
-        plot_new("Calgary", i1=input$interv2, i2=input$interv3)
+        plot_new("Calgary",
+                 i1=input$interv_c1, i2=input$interv_c2,
+                 i3=input$interv_c3, i4=input$interv_c4)
     })
 
     output$plot_pred <- renderPlot({

@@ -150,7 +150,9 @@ interv <- list(
 "2020-03-12"="gatherings of more than 250 people in Alberta be cancelled",
 "2020-03-17"="Province limits mass gathering. Schools and Universities are closed",
 "2020-03-24"="Alberta Health Services changed their approach to testing, to focus on groups at highest risk of local exposure",
-"2020-04-20"="Cargill closed its High River beef processing plant")
+"2020-04-20"="Cargill closed its High River beef processing plant",
+"2020-05-14"="Stage 1 reopening",
+"2020-06-12"="Stage 2 reopening")
 
 
 ## prediction
@@ -247,7 +249,8 @@ plot_demogr <- function(zone) {
         p
 }
 
-plot_new <- function(zone, incidence=FALSE, i1=FALSE, i2=FALSE,
+plot_new <- function(zone, incidence=FALSE,
+                     i1=FALSE, i2=FALSE, i3=FALSE, i4=FALSE,
                      smooth=TRUE) {
         d <- AB[AB$Zone==zone,]
         if (incidence)
@@ -267,5 +270,11 @@ plot_new <- function(zone, incidence=FALSE, i1=FALSE, i2=FALSE,
             p <- p +
               geom_vline(xintercept=as.Date(names(interv)[4]), colour="red") +
               geom_vline(xintercept=as.Date(names(interv)[4])+14, colour="red", lty=2)
+        if (i3)
+          p <- p + geom_vline(xintercept=as.Date(names(interv)[5]), colour="blue") +
+            geom_vline(xintercept=as.Date(names(interv)[5])+14, colour="blue", lty=2)
+        if (i4)
+          p <- p + geom_vline(xintercept=as.Date(names(interv)[6]), colour="green") +
+            geom_vline(xintercept=as.Date(names(interv)[6])+14, colour="green", lty=2)
         p
 }
