@@ -86,7 +86,7 @@ server <- function(input, output) {
                 aes(x=Date, y=Cases), data=vv[vv$Area == i.active, ],
                 colour="blue", show.legend = FALSE, lwd=2) +
             labs(title=i.active)
-        p
+        p + theme_minimal()
     })
 
 
