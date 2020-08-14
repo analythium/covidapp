@@ -1,14 +1,20 @@
-library(shiny)
-library(shinymaterial)
-library(ggplot2)
-library(forecast)
-library(mefa4)
-library(sp)
-library(leaflet)
-library(htmltools)
+suppressPackageStartupMessages({
+  library(shiny)
+  library(shinymaterial)
+  library(ggplot2)
+  library(forecast)
+  library(mefa4)
+  library(sp)
+  library(leaflet)
+  library(htmltools)
+  #library(plotly)
+})
 
 load(url("http://hub.analythium.io/covid-19/data/covid-19.RData"))
 load("areas.RData")
+rownames(AA)[startsWith(rownames(AA), "Calgary - Nose")] <- "Calgary - Nosehill"
+rownames(AA)[startsWith(rownames(AA), "Tofield")] <- "Tofield"
+rownames(AA)[startsWith(rownames(AA), "Viking")] <- "Viking"
 Areas$Areas <- AA[names(Areas$Population),]
 Areas$Dates <- as.Date(colnames(AA))
 
@@ -246,7 +252,7 @@ plot_demogr <- function(zone) {
 #            p <- p +
 #                geom_vline(xintercept=as.Date(names(interv)[4]), colour="red") +
 #                geom_vline(xintercept=as.Date(names(interv)[4])+14, colour="red", lty=2)
-        p
+        p + theme_minimal()
 }
 
 plot_new <- function(zone, incidence=FALSE,
@@ -276,5 +282,5 @@ plot_new <- function(zone, incidence=FALSE,
         if (i4)
           p <- p + geom_vline(xintercept=as.Date(names(interv)[6]), colour="green") +
             geom_vline(xintercept=as.Date(names(interv)[6])+14, colour="green", lty=2)
-        p
+        p + theme_minimal()
 }
