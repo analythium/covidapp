@@ -77,6 +77,7 @@ server <- function(input, output) {
             Cases=as.numeric(dat),
             Date=as.Date(rep(colnames(dat), each=nrow(dat))),
             Area=rep(rownames(dat), ncol(dat)))
+        summary(vv)
         p <- ggplot(vv, aes(x=Date, y=Cases, group=Area)) +
             geom_line(colour="grey", show.legend = FALSE) +
             geom_vline(xintercept=input$date) +
@@ -85,7 +86,7 @@ server <- function(input, output) {
             p <- p + geom_line(
                 aes(x=Date, y=Cases), data=vv[vv$Area == i.active, ],
                 colour="blue", show.legend = FALSE, lwd=2) +
-            labs(title=i.active)
+            labs(title=Ar[i.active, "new_short"])
         p + theme_minimal()
     })
 

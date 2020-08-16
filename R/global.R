@@ -10,19 +10,26 @@ suppressPackageStartupMessages({
   #library(plotly)
 })
 
-load(url("http://hub.analythium.io/covid-19/data/covid-19.RData"))
+try(load(url("http://hub.analythium.io/covid-19/data/covid-19.RData")))
 load("areas.RData")
-rownames(AA)[startsWith(rownames(AA), "Calgary - Nose")] <- "Calgary - Nosehill"
-rownames(AA)[startsWith(rownames(AA), "Tofield")] <- "Tofield"
-rownames(AA)[startsWith(rownames(AA), "Viking")] <- "Viking"
+
+#names(Areas$Population) <- gsub(" ", "", tolower(names(Areas$Population)))
+#names(Areas$Regions) <- gsub(" ", "", tolower(names(Areas$Regions)))
+#levels(ABsp@data$ID) <- gsub(" ", "", tolower(levels(ABsp@data$ID)))
+
+setdiff(rownames(AA), names(Areas$Population))
+setdiff(names(Areas$Population), rownames(AA))
 Areas$Areas <- AA[names(Areas$Population),]
 Areas$Dates <- as.Date(colnames(AA))
+#save(ABsp, Areas, file="areas.RData")
 
 ## Areas
 AA <- Areas$Areas
 for (i in 2:ncol(AA))
     AA[is.na(AA[,i]),i] <- AA[is.na(AA[,i]),i-1]
 A <- AA / (Areas$Population / 1000)
+rownames(Ar) <- Ar$new_lower
+Ar <- Ar[rownames(AA),]
 
 get_zone <- function(zone=NULL) {
     ss <- if (is.null(zone))
@@ -40,6 +47,7 @@ make_map <- function(date=NULL, zone=NULL, cases=FALSE, latestmax=TRUE) {
     p <- z$poly
     p@data$cases <- z$cases[,date]
     p@data$incidences <- z$incidences[,date]
+    p@data$nam <- Ar[as.character(p@data$ID), "new_short"]
     var <- if (cases)
         p@data$cases else p@data$incidences
     if (latestmax) {
@@ -59,7 +67,7 @@ make_map <- function(date=NULL, zone=NULL, cases=FALSE, latestmax=TRUE) {
                    "Calgary"=7,
                    "North"=5,
                    6)
-    labels <- lapply(paste0("<strong>", p@data$ID,
+    labels <- lapply(paste0("<strong>", p@data$nam,
         "</strong><br/>", p@data$cases, " cases on ", date,
         "<br/>(", round(p@data$incidences, 3), "/1000 individual)"), htmltools::HTML)
     bb <- bbox(p)
