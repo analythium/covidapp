@@ -54,7 +54,7 @@
         >Analythium Solutions Inc.</a>&nbsp;&mdash;&nbsp;<a
           href="https://github.com/analythium/covid-19"
           target="_blank"
-        >Data sources</a>
+        >Data sources</a>&nbsp;&mdash;&nbsp;<a href="https://raw.githubusercontent.com/analythium/analythium.github.io/source/DISCLAIMER" target="_blank">Disclaimers and Limitations</a>
       </q-toolbar>
     </q-footer>
   </q-layout>
