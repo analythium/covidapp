@@ -22,21 +22,19 @@ App template to base Analythium Shiny apps on.
 Pull:
 
 ```
-docker pull docker.pkg.github.com/analythium/covidapp/abmap
+docker pull analythium/covidapp-abmap
 ```
 
 Build:
 
 ```
-docker login docker.pkg.github.com
-
-docker build -t docker.pkg.github.com/analythium/covidapp/abmap .
+docker build -t analythium/covidapp-abmap .
 ```
 
 Test locally:
 
 ```
-docker run -p 4000:3838 docker.pkg.github.com/analythium/covidapp/abmap
+docker run -p 4000:3838 analythium/covidapp-abmap
 ```
 
 then visit `127.0.0.1:4000`.

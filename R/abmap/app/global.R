@@ -110,18 +110,12 @@ latestmax=TRUE, new=FALSE, what="cases") {
     bb <- bbox(p)
     leaflet(p) %>%
       setView(mean(bb[1,]), mean(bb[2,]), Zoom) %>%
-#      addProviderTiles("Esri.OceanBasemap", group = "Esri.OceanBasemap") %>%
-#      addProviderTiles("CartoDB.DarkMatter", group = "DarkMatter (CartoDB)") %>%
       addProviderTiles("OpenStreetMap.Mapnik", group = "OpenStreetmap") %>%
-#      addProviderTiles("Esri.WorldImagery", group = "Esri.WorldImagery") %>%
-#      addLayersControl(baseGroups = c("OpenStreetmap","Esri.OceanBasemap",
-#        "DarkMatter (CartoDB)", "Esri.WorldImagery"),
-#        options = layersControlOptions(collapsed = TRUE, autoZIndex = FALSE)) %>%
       addPolygons(
         fillColor = ~pal(var),
         weight = 1,
         opacity = 1,
-        color = "white",
+        color = ~pal(var),
         dashArray = "",
         fillOpacity = 0.7,
         highlight = highlightOptions(

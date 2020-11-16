@@ -41,7 +41,7 @@ server <- function(input, output) {
             new=input$new,
             what=input$what,
             active=i.active)
-        ggplotly(p)
+        ggplotly(p) %>% config(displayModeBar = FALSE)
     })
 
     output$excl <- renderText({
