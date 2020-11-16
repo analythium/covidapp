@@ -137,7 +137,7 @@ latestmax=TRUE, new=FALSE, what="cases") {
 }
 
 make_plot <- function(date=NULL, zone=NULL, cases=FALSE,
-new=FALSE, what="cases", active=NULL) {
+new=FALSE, what="cases", active=NULL, filter=FALSE, col="grey") {
 
   if (is.null(date))
     date <- dimnames(AA)[[2]][dim(AA)[2]]
@@ -158,10 +158,17 @@ new=FALSE, what="cases", active=NULL) {
       Date=as.Date(rep(colnames(dat), each=nrow(dat))),
       Key=rep(rownames(dat), ncol(dat)),
       Area=rep(Ar[rownames(dat), "new_short"], ncol(dat)))
+  XLIM <- range(vv$Date)
+  YMAX <- max(vv$Value)
+  if (filter)
+    vv <- vv[vv$Date <= as.Date(date),,drop=FALSE]
   p <- ggplot(vv, aes(x=Date, y=Value, group=Area)) +
-      geom_line(colour="grey", show.legend = FALSE) +
-      geom_vline(xintercept=as.numeric(as.Date(date))) +
-      ylab(YLAB)
+      geom_line(colour=col, show.legend = FALSE) +
+      ylab(YLAB) +
+      xlim(XLIM[1], XLIM[2]) +
+      ylim(0, YMAX)
+  if (!filter)
+      p <- p + geom_vline(xintercept=as.numeric(as.Date(date)))
   if (!is.null(active))
       p <- p + geom_line(
           aes(x=Date, y=Value), data=vv[vv$Key == active, ],
