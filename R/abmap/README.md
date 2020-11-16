@@ -22,19 +22,21 @@ App template to base Analythium Shiny apps on.
 Pull:
 
 ```
-docker pull registry.gitlab.com/analythium/airquality/airmap
+docker pull docker.pkg.github.com/analythium/covidapp/abmap
 ```
 
 Build:
 
 ```
-docker build -t registry.gitlab.com/analythium/airquality/airmap .
+docker login docker.pkg.github.com
+
+docker build -t docker.pkg.github.com/analythium/covidapp/abmap .
 ```
 
 Test locally:
 
 ```
-docker run -p 4000:3838 registry.gitlab.com/analythium/airquality/airmap
+docker run -p 4000:3838 docker.pkg.github.com/analythium/covidapp/abmap
 ```
 
 then visit `127.0.0.1:4000`.
