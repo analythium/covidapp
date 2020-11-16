@@ -21,5 +21,4 @@ jobs:
         with:
           context: ./R/abmap
           file: ./R/abmap/Dockerfile
-          push: true
-          tags: ghcr.io/analythium/covidapp/abmap:latest
+          tags: docker.pkg.github.com/analythium/covidapp/abmap:latest
