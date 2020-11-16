@@ -20,7 +20,7 @@ RUN add-apt-repository ppa:ubuntugis/ubuntugis-unstable \
 RUN install2.r -e remotes renv
 
 # Set Shiny address and port in Rprofile.site
-RUN echo "local(options(shiny.port = 3838, shiny.host = '0.0.0.0', HTTPUserAgent = sprintf('R/%s R (%s)', getRversion(), paste(getRversion(), R.version$platform, R.version$arch, R.version$os))))" > /usr/lib/R/etc/Rprofile.site
+RUN echo "local(options(shiny.port = 3838, shiny.host = '0.0.0.0', renv.consent = TRUE, HTTPUserAgent = sprintf('R/%s R (%s)', getRversion(), paste(getRversion(), R.version$platform, R.version$arch, R.version$os))))" > /usr/lib/R/etc/Rprofile.site
 
 ## non-root user
 
