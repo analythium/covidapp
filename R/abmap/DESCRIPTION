@@ -1,0 +1,10 @@
+Package: package
+Type: Package
+Title: Shiny app
+Version: 0.0.1
+Date: 2020-11-15
+Author: Peter Solymos [aut, cre] (<https://orcid.org/0000-0001-7337-1740>)
+Maintainer: Peter Solymos <peter@analythium.io>
+Description: Shiny app.
+License: MIT + file LICENSE
+Depends: shiny, shinythemes, ggplot, sp, leaflet, htmltools, plotly

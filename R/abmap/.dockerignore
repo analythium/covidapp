@@ -1,0 +1,7 @@
+renv*
+!renv.lock
+.RData
+*.Rhistory
+.Rproj.user*
+.Rproj.user
+.Rapp.history
