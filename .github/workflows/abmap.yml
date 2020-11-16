@@ -12,8 +12,8 @@ jobs:
         uses: actions/checkout@v2
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1
-        working-directory: ./R/abmap
         with:
+          working-directory: ./R/abmap
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: docker.pkg.github.com
