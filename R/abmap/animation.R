@@ -50,6 +50,8 @@ for (i in 1:length(St)) {
 }
 
 im <- image_read(paste0("_tmp/out-", c(1:length(St), rep(length(St), 5)), ".png"))
-an <- image_animate(im, fps=5)
+an <- image_animate(image_morph(im, 2), fps=5)
 image_write(an, "_tmp/ab-covid.gif")
 
+an2 <- image_resize(an, geometry_size_pixels(width=1000))
+image_write(an2, "_tmp/ab-covid-sm.gif")
