@@ -117,9 +117,10 @@ for (i in names(out)) {
     if (!is.null(out[[i]]$x$style) && out[[i]]$x$style == "bootstrap")
         a <- i
 }
-x <- as.data.frame(t(out[[a]]$x$data))
-colnames(x) <- c("id", "date", "zone", "gender", "ageclass", "status", "type")
-x$id <- as.integer(as.character(x$id))
+x <- as.data.frame(t(out[[a]]$x$data), stringsAsFactors = TRUE)
+#colnames(x) <- c("id", "date", "zone", "gender", "ageclass", "status", "type")
+#x$id <- as.integer(as.character(x$id))
+colnames(x) <- c("date", "zone", "gender", "ageclass", "status", "type")
 x$date <- as.Date(x$date)
 x$date <- factor(as.character(x$date),
     as.character(seq(min(x$date), max(x$date), 1)))
