@@ -5,7 +5,7 @@ ui <- material_page(
   material_tabs(
     tabs = c(
       "Trend and prediction" = "new_cases",
-      "Age and gender" = "demography",
+      #"Age and gender" = "demography",
       "Interventions" = "interventions",
       "Space and time" = "spacetime"
     ),
@@ -41,7 +41,7 @@ ui <- material_page(
     )
   ),
 
-  material_tab_content(
+  if (FALSE) {material_tab_content(
     tab_id = "demography",
     material_row(
       material_column(
@@ -61,7 +61,7 @@ ui <- material_page(
         tags$p("Average age (lower end of age classes averaged) by date.")
       )
     )
-  ),
+  )} else { NULL },
 
   material_tab_content(
     tab_id = "interventions",

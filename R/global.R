@@ -112,11 +112,14 @@ PopByZone <- sum_by(Areas$Population, Areas$Regions)[,"x"]
 PopByZone <- c(PopByZone, Total=sum(PopByZone))
 PopByZone <- PopByZone / 1000
 
+if (FALSE) {
 a <- "node11"
 for (i in names(out)) {
+  print(out[[i]]$x$style)
     if (!is.null(out[[i]]$x$style) && out[[i]]$x$style == "bootstrap")
         a <- i
 }
+
 x <- as.data.frame(t(out[[a]]$x$data), stringsAsFactors = TRUE)
 #colnames(x) <- c("id", "date", "zone", "gender", "ageclass", "status", "type")
 #x$id <- as.integer(as.character(x$id))
@@ -133,6 +136,7 @@ StartYr <- as.integer(StartYr)
 x$ages <- StartYr[as.integer(x$ageclass)]
 x <- droplevels(x[!is.na(x$ages) & x$gender != "Unknown" & x$zone != "Unknown",])
 levels(x$zone) <- gsub(" Zone", "", levels(x$zone))
+}
 
 ## new cases
 
