@@ -7,9 +7,18 @@ suppressPackageStartupMessages({
   library(htmltools)
   library(plotly)
 })
+options(shiny.sanitize.errors = TRUE)
 
+# Ar MMM AAA
 try(load(url("http://hub.analythium.io/covid-19/data/covid-19-abmap.RData")))
+if (FALSE) {
+  AAA <- AAA[,1:423,]
+  #MMM <- MMM[,1:423,]
+  save(Ar, AAA, file="app/abmap.RData")
+}
 load("areas.RData")
+#load("abmap.RData")
+#load("/Users/Peter/repos/covid-19/output/data/covid-19-abmap.RData")
 
 setdiff(dimnames(AAA)[[1]], names(Areas$Population))
 setdiff(names(Areas$Population), dimnames(AAA)[[1]])

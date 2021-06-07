@@ -45,6 +45,8 @@ server <- function(input, output) {
     })
 
     output$excl <- renderText({
+        if (!("na" %in% dimnames(AAA)[[1]]))
+            return(NULL)
         N <- AAA["na", as.character(input$date), input$what]
         if (is.na(N) || N < 1)
             return(NULL)
